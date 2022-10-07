@@ -3,6 +3,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:senior_project/screens/commons/player_buttons.dart';
 
 class Player extends StatefulWidget {
+  const Player({Key? key}) : super(key: key);
+
   @override
   _PlayerState createState() => _PlayerState();
 }
