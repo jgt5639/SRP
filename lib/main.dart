@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/screens/player.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:senior_project/screens/home_screen.dart';
+import 'package:senior_project/screens/song_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,6 +9,26 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: "Material App Title",
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const HomeScreen(),
+      getPages: [
+        GetPage(name: '/', page: () => const HomeScreen()),
+        GetPage(name: '/song', page: () => const SongScreen()),
+        //GetPage(name: '/', page: () => const HomeScreen()),
+      ],
+    );
+  }
+}
+
+ 
+
+
+
+  /*
+   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'MaterialApp Title',
@@ -122,3 +144,4 @@ class MyStatelessWidget extends StatelessWidget {
     );
   }
 }
+*/
