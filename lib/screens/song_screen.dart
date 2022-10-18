@@ -48,7 +48,10 @@ class _SongScreenState extends State<SongScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 36, 48, 94),
+        elevation: 0,
+      ),
       body: Stack(children: [
         _MusicPlayer(
           seekBarDataStream: _seekBarDataStream,
@@ -72,32 +75,49 @@ class _MusicPlayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 40,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('Title'),
-          const SizedBox(height: 30),
-          const Text('Artist'),
-          const SizedBox(height: 30),
-          StreamBuilder<SeekBarData>(
-            stream: _seekBarDataStream,
-            builder: (context, snapshot) {
-              final positionData = snapshot.data;
-              return SeekBar(
-                position: positionData?.position ?? Duration.zero,
-                duration: positionData?.duration ?? Duration.zero,
-                onChangedEnd: audioPlayer.seek,
-              );
-            },
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 36, 48, 94),
+              Color.fromARGB(255, 55, 71, 133)
+            ],
           ),
-          PlayerButtons(audioPlayer: audioPlayer),
-        ],
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 40,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Title:',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 248, 233, 161),
+                )),
+            const SizedBox(height: 30),
+            const Text('Artist:',
+                style: TextStyle(color: Color.fromARGB(255, 168, 208, 230))),
+            // const Center( ),
+            const SizedBox(height: 30),
+            StreamBuilder<SeekBarData>(
+              stream: _seekBarDataStream,
+              builder: (context, snapshot) {
+                final positionData = snapshot.data;
+                return SeekBar(
+                  position: positionData?.position ?? Duration.zero,
+                  duration: positionData?.duration ?? Duration.zero,
+                  onChangedEnd: audioPlayer.seek,
+                );
+              },
+            ),
+            PlayerButtons(audioPlayer: audioPlayer),
+          ],
+        ),
       ),
     );
   }

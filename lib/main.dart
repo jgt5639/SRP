@@ -12,7 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: "Material App Title",
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(
+        textTheme: Theme.of(context).textTheme.apply(
+            bodyColor: Color.fromARGB(255, 247, 108, 108),
+            displayColor: Color.fromARGB(255, 247, 108, 108)),
+      ),
       home: const HomeScreen(),
       getPages: [
         GetPage(name: '/', page: () => const HomeScreen()),
