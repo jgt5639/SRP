@@ -7,6 +7,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        margin: EdgeInsets.zero,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -21,9 +22,34 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: const _CustomeAppBar(),
           bottomNavigationBar: const _CustomNavBar(),
-          body: Container(
-            child: const Text("he"),
-          ),
+          body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.home),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.play_circle_fill_outlined),
+                  onPressed: () {
+                    //Page Navigation
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SongScreen()),
+                    );
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.upload_file_rounded),
+                  onPressed: () {
+                    //Page Navigation
+                  },
+                )
+              ],
+            )
+          ]),
         ));
   }
 }
