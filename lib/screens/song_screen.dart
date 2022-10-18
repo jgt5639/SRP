@@ -49,7 +49,7 @@ class _SongScreenState extends State<SongScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 36, 48, 94),
+        backgroundColor: const Color.fromARGB(255, 36, 48, 94),
         elevation: 0,
       ),
       body: Stack(children: [
@@ -77,7 +77,7 @@ class _MusicPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

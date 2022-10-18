@@ -7,7 +7,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -21,7 +21,9 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: const _CustomeAppBar(),
           bottomNavigationBar: const _CustomNavBar(),
-          body: Container(),
+          body: Container(
+            child: const Text("he"),
+          ),
         ));
   }
 }
@@ -34,9 +36,9 @@ class _CustomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: Color.fromARGB(255, 55, 71, 133),
-      unselectedItemColor: Color.fromARGB(255, 247, 108, 108),
-      selectedItemColor: Color.fromARGB(255, 248, 233, 161),
+      backgroundColor: const Color.fromARGB(255, 55, 71, 133),
+      unselectedItemColor: const Color.fromARGB(255, 247, 108, 108),
+      selectedItemColor: const Color.fromARGB(255, 248, 233, 161),
       type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -49,9 +51,11 @@ class _CustomNavBar extends StatelessWidget {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.upload_file_rounded),
-          label: "Unkown Files",
+          label: "Unknown Files",
         ),
       ],
+      //currentIndex: selectedIndex,
+      //onTap: onItemTapped,
     );
   }
 }
@@ -62,23 +66,18 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(255, 36, 48, 94),
+      backgroundColor: const Color.fromARGB(255, 36, 48, 94),
       elevation: 0,
-      leading: Text(
+      leading: const Text(
         'Library',
         style: TextStyle(
-            color: Color.fromARGB(
-              255,
-              247,
-              108,
-              108,
-            ),
+            color: Color.fromARGB(255, 247, 108, 108),
             fontSize: 18,
             fontFamily: 'Schyler'),
       ),
       actions: <Widget>[
         IconButton(
-          color: Color.fromARGB(255, 248, 233, 161),
+          color: const Color.fromARGB(255, 248, 233, 161),
           icon: const Icon(Icons.my_library_music_rounded),
           onPressed: () {
             Navigator.push(
