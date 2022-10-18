@@ -3,7 +3,10 @@ import 'package:just_audio/just_audio.dart';
 import 'package:senior_project/screens/commons/player_buttons.dart';
 
 class Player extends StatefulWidget {
+  const Player({Key? key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _PlayerState createState() => _PlayerState();
 }
 
@@ -17,16 +20,13 @@ class _PlayerState extends State<Player> {
 
     _audioPlayer
         .setAudioSource(ConcatenatingAudioSource(children: [
-      AudioSource.uri(Uri.parse(
-          "https://archive.org/download/IGM-V7/IGM%20-%20Vol.%207/25%20Diablo%20-%20Tristram%20%28Blizzard%29.mp3")),
-      AudioSource.uri(Uri.parse(
-          "https://archive.org/download/igm-v8_202101/IGM%20-%20Vol.%208/15%20Pokemon%20Red%20-%20Cerulean%20City%20%28Game%20Freak%29.mp3")),
-      AudioSource.uri(Uri.parse(
-          "https://scummbar.com/mi2/MI1-CD/01%20-%20Opening%20Themes%20-%20Introduction.mp3")),
+      AudioSource.uri(Uri.parse('asset:///audios/Guitar.mp3')),
+      AudioSource.uri(Uri.parse('asset:///audios/8Bit.mp3')),
+      AudioSource.uri(Uri.parse('asset:///audios/Simple.mp3')),
     ]))
         .catchError((error) {
       // catch load errors: 404, invalid url ...
-      print("An error occured $error");
+      //print("An error occured $error");
     });
   }
 
