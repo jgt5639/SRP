@@ -119,42 +119,44 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                   itemCount: item.data!.length,
                   itemBuilder: (context, index) {
                     return Container(
+                     // color: Color.fromARGB(a, r, g, b)
                       margin: const EdgeInsets.only(
-                          top: 15.0, left: 12.0, right: 16.0),
+                          top: 10.0, left: 12.0, right: 16.0),
                       padding: const EdgeInsets.only(top: 30.0, bottom: 30),
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: const [
-                          BoxShadow(
-                            blurRadius: 4.0,
-                            offset: Offset(-4, -4),
-                            color: Colors.white24,
-                          ),
-                          BoxShadow(
-                            blurRadius: 4.0,
-                            offset: Offset(4, 4),
-                            color: Colors.black,
-                          ),
-                        ],
+                        color: Color.fromARGB(0, 248, 233, 161),
+                        //borderRadius: BorderRadius.circular(20.0),
+                        // boxShadow: const [
+                        //   BoxShadow(
+                        //     blurRadius: 4.0,
+                        //     offset: Offset(-4, -4),
+                        //     color: Colors.white24,
+                        //   ),
+                        //   BoxShadow(
+                        //     blurRadius: 4.0,
+                        //     offset: Offset(4, 4),
+                        //     color: Colors.black,
+                        //   ),
+                        // ],
                       ),
                       child: ListTile(
-                        textColor: Colors.white,
+                        textColor: Color.fromARGB(255, 248, 233, 161),
                         title: Text(item.data![index].title),
                         subtitle: Text(
                           item.data![index].displayName,
                           style: const TextStyle(
-                            color: Colors.white60,
+                            color:Color.fromARGB(255, 168, 208, 230),
                           ),
                         ),
-                        trailing: const Icon(Icons.more_vert),
+                        trailing: const Icon(Icons.more_vert,
+                        color: Color.fromARGB(255, 248, 233, 161),),
                         leading: QueryArtworkWidget(
                           id: item.data![index].id,
                           type: ArtworkType.AUDIO,
                         ),
                         onTap: () {
                           //toast message showing he selected song title
-                          toast(context,
+                          toast(context, 
                               "You Selected:   ${item.data![index].title}");
                         },
                       ),
@@ -218,7 +220,8 @@ class MyHomeScreenState extends State<MyHomeScreen> {
 //define a toast method
   void toast(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(text),
+      
+      content: Text((text)),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
     ));
