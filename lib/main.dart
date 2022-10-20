@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
             bodyColor: const Color.fromARGB(255, 247, 108, 108),
             displayColor: const Color.fromARGB(255, 247, 108, 108)),
       ),
-      home: MyHomeScreen(),
+      home: const MyHomeScreen(),
       getPages: [
-        GetPage(name: '/', page: () => MyHomeScreen()),
+        GetPage(name: '/', page: () => const MyHomeScreen()),
         GetPage(name: '/song', page: () => const SongScreen()),
         //GetPage(name: '/', page: () => const HomeScreen()),
       ],

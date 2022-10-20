@@ -1,15 +1,11 @@
-import 'dart:io' as io;
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:senior_project/screens/song_screen.dart';
-import 'package:path_provider/path_provider.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 // Make New Function
 
 class MyHomeScreen extends StatefulWidget {
+  const MyHomeScreen({super.key});
+
   @override
   MyHomeScreenState createState() => MyHomeScreenState();
 }
@@ -74,16 +70,19 @@ class MyHomeScreenState extends State<MyHomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SizedBox(
-                    //The List View is Wonky. Edit the Height and Width below for your phone Jose.
-                    height: 200,
-                    width: 300,
-                    child: ListView.builder(
-                        itemCount: SampleList.length,
-                        itemBuilder: (BuildContext ctxt, int index) {
-                          return Text(SampleList[index]);
-                        })),
+                  height: MediaQuery.of(context).size.height - 250,
+                  width: MediaQuery.of(context).size.width - 25,
+                  child: ListView.separated(
+                    itemCount: SampleList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Text(SampleList[index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(thickness: 1),
+                  ),
+                ),
                 const Padding(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.all(10),
                 ),
                 SizedBox(
                     child: Row(
