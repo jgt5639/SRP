@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:senior_project/screens/song_screen.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_file_manager/flutter_file_manager.dart';
-import 'package:path_provider_ex/path_provider_ex.dart';
 import 'dart:io' as io;
 // Make New Function
 
@@ -16,41 +16,29 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class MyHomeScreenState extends State<MyHomeScreen> {
-  var files;
-
-  void getFiles() async {
-    //asyn function to get list of files
-    List<StorageInfo> storageInfo = await PathProviderEx.getStorageInfo();
-    var root = storageInfo[0]
-        .rootDir; //storageInfo[1] for SD card, geting the root directory
-    var fm = FileManager(root: Directory(root)); //
-    files = await fm.filesTree(
-        excludedPaths: ["/storage/emulated/0/Android"],
-        extensions: ["mp3"] //optional, to filter files, list only mp3 files
-        );
-    setState(() {}); //update the UI
-  }
+  // define on audio plugin
+  final OnAudioQuery _audioQuery = OnAudioQuery();
 
   List file = [];
 
   @override
   void initState() {
-    getFiles(); //call getFiles() function on initial state.
     super.initState();
+    requestStoragePermission();
     _listofFiles();
   }
 
   void _listofFiles() async {
-    Directory? directory = (await getExternalStorageDirectory());
+    //Directory? directory = (await getExternalStorageDirectory());
     setState(() {
-      print(
-          "PRINTING HERE MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-      print(file);
+      //print(
+      // "PRINTING HERE MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      //print(file);
 
       ///data/user/0/com.example.senior_project/app_flutter/audios/
-      file = io.Directory("$directory/audios/").listSync();
+      //file = io.Directory("$directory/audios/").listSync();
 
-      print(file);
+      //print(file);
     });
   }
 
@@ -92,7 +80,7 @@ class MyHomeScreenState extends State<MyHomeScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Color.fromARGB(255, 36, 48, 94),
-              Color.fromARGB(255, 55, 71, 133)
+              Color.fromARGB(255, 55, 71, 133),
             ],
           ),
         ),
@@ -101,73 +89,152 @@ class MyHomeScreenState extends State<MyHomeScreen> {
           appBar: const _CustomeAppBar(),
           //Comment out the bottomNavigationBar below this line to make the bottom set of button disappear.
           bottomNavigationBar: const _CustomNavBar(),
-          body: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height - 250,
-                  width: MediaQuery.of(context).size.width - 25,
-                  child: ListView.separated(
-                    itemCount: files?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return Card(
-                          child: ListTile(
-                        title: Text(files[index].path.split('/').last),
-                        leading: const Icon(Icons.audiotrack),
-                        trailing: const Icon(
-                          Icons.play_arrow,
-                          color: Colors.redAccent,
+          ///////
+          body: FutureBuilder<List<SongModel>>(
+            //default values
+            future: _audioQuery.querySongs(
+              orderType: OrderType.ASC_OR_SMALLER,
+              uriType: UriType.INTERNAL,
+              ignoreCase: true,
+              //path:
+            ),
+            builder: (context, item) {
+              //loading content indicator
+              if (item.data == null) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              //no songs found
+              if (item.data!.isEmpty) {
+                return const Center(
+                  child: Text("No Songs Found"),
+                );
+              }
+
+              // You can use [item.data!] direct or you can create a list of songs as
+              // List<SongModel> songs = item.data!;
+              //showing the songs
+              return ListView.builder(
+                  itemCount: item.data!.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                          top: 15.0, left: 12.0, right: 16.0),
+                      padding: const EdgeInsets.only(top: 30.0, bottom: 30),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 4.0,
+                            offset: Offset(-4, -4),
+                            color: Colors.white24,
+                          ),
+                          BoxShadow(
+                            blurRadius: 4.0,
+                            offset: Offset(4, 4),
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        textColor: Colors.white,
+                        title: Text(item.data![index].title),
+                        subtitle: Text(
+                          item.data![index].displayName,
+                          style: const TextStyle(
+                            color: Colors.white60,
+                          ),
+                        ),
+                        trailing: const Icon(Icons.more_vert),
+                        leading: QueryArtworkWidget(
+                          id: item.data![index].id,
+                          type: ArtworkType.AUDIO,
                         ),
                         onTap: () {
-                          // you can add Play/push code over here
+                          //toast message showing he selected song title
+                          toast(context,
+                              "You Selected:   ${item.data![index].title}");
                         },
-                      ));
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(thickness: 1),
-
-                    /*
-                    itemCount: SampleList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Text(SampleList[index]);
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(thickness: 1),
-                    */
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(10),
-                ),
-                SizedBox(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                      tooltip: "Home",
-                      icon: const Icon(Icons.home),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      tooltip: "Play",
-                      icon: const Icon(Icons.play_circle_fill_outlined),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SongScreen()),
-                        );
-                      },
-                    ),
-                    IconButton(
-                      tooltip: "Unknown Files",
-                      icon: const Icon(Icons.upload_file_rounded),
-                      onPressed: () async {},
-                    )
-                  ],
-                ))
-              ]),
+                      ),
+                    );
+                  });
+            },
+          ),
         ));
+  }
+
+  /*body:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height - 250,
+            width: MediaQuery.of(context).size.width - 25,
+            child: ListView.separated(
+              itemCount: SampleList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Text(SampleList[index]);
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(thickness: 1),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(10),
+          ),
+          SizedBox(
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    tooltip: "Home",
+                    icon: const Icon(Icons.home),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    tooltip: "Play",
+                    icon: const Icon(Icons.play_circle_fill_outlined),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SongScreen()),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    tooltip: "Unknown Files",
+                    icon: const Icon(Icons.upload_file_rounded),
+                    onPressed: () async {},
+                  )
+                ]),
+          )
+        ]),
+      
+      ),
+    );
+  }
+  */
+//define a toast method
+  void toast(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(text),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+    ));
+  }
+
+  void requestStoragePermission() async {
+    //only if the platform is not web, coz web have no permissions
+    if (!kIsWeb) {
+      bool permissionStatus = await _audioQuery.permissionsStatus();
+      if (!permissionStatus) {
+        await _audioQuery.permissionsRequest();
+      }
+
+      //ensure build method is called
+      setState(() {});
+    }
   }
 }
 
