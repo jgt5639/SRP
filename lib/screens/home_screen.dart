@@ -121,8 +121,8 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                     return Container(
                      // color: Color.fromARGB(a, r, g, b)
                       margin: const EdgeInsets.only(
-                          top: 10.0, left: 12.0, right: 16.0),
-                      padding: const EdgeInsets.only(top: 30.0, bottom: 30),
+                          top: 50.0, left: 25.0, right: 25.0),
+                      padding: const EdgeInsets.only(top: 2.0, bottom: 2),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(0, 248, 233, 161),
                         //borderRadius: BorderRadius.circular(20.0),
@@ -279,7 +279,7 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 36, 48, 94),
+      backgroundColor: Color.fromARGB(0, 247, 108, 108),//const Color.fromARGB(255, 36, 48, 94),
       elevation: 0,
       leading: const Text(
         'Music Library',
