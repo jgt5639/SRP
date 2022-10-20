@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:senior_project/screens/song_screen.dart';
 import 'package:path_provider/path_provider.dart';
-//import 'package:flutter_file_manager/flutter_file_manager.dart';
-//import 'package:path_provider_ex/path_provider_ex.dart';
+import 'package:flutter_file_manager/flutter_file_manager.dart';
+import 'package:path_provider_ex/path_provider_ex.dart';
 import 'dart:io' as io;
 // Make New Function
 
@@ -16,7 +16,6 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class MyHomeScreenState extends State<MyHomeScreen> {
-  /*
   var files;
 
   void getFiles() async {
@@ -31,13 +30,12 @@ class MyHomeScreenState extends State<MyHomeScreen> {
         );
     setState(() {}); //update the UI
   }
-  */
 
   List file = [];
 
   @override
   void initState() {
-    //getFiles(); //call getFiles() function on initial state.
+    getFiles(); //call getFiles() function on initial state.
     super.initState();
     _listofFiles();
   }
@@ -110,7 +108,6 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                   height: MediaQuery.of(context).size.height - 250,
                   width: MediaQuery.of(context).size.width - 25,
                   child: ListView.separated(
-                    /*
                     itemCount: files?.length ?? 0,
                     itemBuilder: (context, index) {
                       return Card(
@@ -128,14 +125,15 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(thickness: 1),
-                        */
 
+                    /*
                     itemCount: SampleList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Text(SampleList[index]);
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(thickness: 1),
+                    */
                   ),
                 ),
                 const Padding(
