@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:senior_project/screens/song_screen.dart';
 import 'package:path_provider/path_provider.dart';
+//import 'package:flutter_file_manager/flutter_file_manager.dart';
+//import 'package:path_provider_ex/path_provider_ex.dart';
 import 'dart:io' as io;
 // Make New Function
 
@@ -12,16 +16,34 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class MyHomeScreenState extends State<MyHomeScreen> {
-  String directory = '';
+  /*
+  var files;
+
+  void getFiles() async {
+    //asyn function to get list of files
+    List<StorageInfo> storageInfo = await PathProviderEx.getStorageInfo();
+    var root = storageInfo[0]
+        .rootDir; //storageInfo[1] for SD card, geting the root directory
+    var fm = FileManager(root: Directory(root)); //
+    files = await fm.filesTree(
+        excludedPaths: ["/storage/emulated/0/Android"],
+        extensions: ["mp3"] //optional, to filter files, list only mp3 files
+        );
+    setState(() {}); //update the UI
+  }
+  */
+
   List file = [];
+
   @override
   void initState() {
+    //getFiles(); //call getFiles() function on initial state.
     super.initState();
     _listofFiles();
   }
 
   void _listofFiles() async {
-    directory = (await getApplicationDocumentsDirectory()).path;
+    Directory? directory = (await getExternalStorageDirectory());
     setState(() {
       print(
           "PRINTING HERE MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -88,6 +110,26 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                   height: MediaQuery.of(context).size.height - 250,
                   width: MediaQuery.of(context).size.width - 25,
                   child: ListView.separated(
+                    /*
+                    itemCount: files?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: ListTile(
+                        title: Text(files[index].path.split('/').last),
+                        leading: const Icon(Icons.audiotrack),
+                        trailing: const Icon(
+                          Icons.play_arrow,
+                          color: Colors.redAccent,
+                        ),
+                        onTap: () {
+                          // you can add Play/push code over here
+                        },
+                      ));
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(thickness: 1),
+                        */
+
                     itemCount: SampleList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Text(SampleList[index]);
