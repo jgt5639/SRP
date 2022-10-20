@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/screens/song_screen.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'dart:io' as io;
 // Make New Function
 
 class MyHomeScreen extends StatefulWidget {
@@ -17,6 +18,20 @@ class MyHomeScreenState extends State<MyHomeScreen> {
   void initState() {
     super.initState();
     _listofFiles();
+  }
+
+  void _listofFiles() async {
+    directory = (await getApplicationDocumentsDirectory()).path;
+    setState(() {
+      print(
+          "PRINTING HERE MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+      print(file);
+
+      ///data/user/0/com.example.senior_project/app_flutter/audios/
+      file = io.Directory("$directory/audios/").listSync();
+
+      print(file);
+    });
   }
 
   //Ok Not just need to populate this list with the list of songs
@@ -47,7 +62,6 @@ class MyHomeScreenState extends State<MyHomeScreen> {
     'going?'
   ];
 
-  _listofFiles() async {}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,6 +79,7 @@ class MyHomeScreenState extends State<MyHomeScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: const _CustomeAppBar(),
+          //Comment out the bottomNavigationBar below this line to make the bottom set of button disappear.
           bottomNavigationBar: const _CustomNavBar(),
           body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -157,7 +172,7 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
       backgroundColor: const Color.fromARGB(255, 36, 48, 94),
       elevation: 0,
       leading: const Text(
-        'Library',
+        'Music Library',
         style: TextStyle(
             color: Color.fromARGB(255, 247, 108, 108),
             fontSize: 18,
