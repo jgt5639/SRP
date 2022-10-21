@@ -16,11 +16,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FlutterPlay Songs',
+      title: 'MainApp',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'FlutterPlay Songs'),
+      home: const MyHomePage(title: 'Songs'),
     );
   }
 }
@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   //more variables
   List<SongModel> songs = [];
   String currentSongTitle = '';
+  String currentSongArtist = '';
   int currentIndex = 0;
 
   bool isPlayerViewVisible = false;
@@ -123,13 +124,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Flexible(
                       flex: 10,
-                      child: Text(
-                        currentSongTitle,
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 248, 233, 161),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
+                      child: Column(
+                        children: [
+                          Text(
+                            currentSongTitle,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 248, 233, 161),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
+                          ),
+                          Text(
+                            currentSongArtist,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 168, 208, 230),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -180,7 +193,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             baseBarColor: bgColor,
                             progressBarColor:
                                 const Color.fromARGB(255, 247, 108, 108),
-                            thumbColor: Color.fromARGB(255, 248, 233, 161),
+                            thumbColor:
+                                const Color.fromARGB(255, 248, 233, 161),
                             timeLabelTextStyle: const TextStyle(
                               fontSize: 0,
                             ),
@@ -269,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
                             margin:
                                 const EdgeInsets.only(right: 20.0, left: 20.0),
                             child: StreamBuilder<bool>(
@@ -504,6 +518,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (songs.isNotEmpty) {
         currentSongTitle = songs[index].title;
+        currentSongArtist = songs[index].artist!;
         currentIndex = index;
       }
     });
