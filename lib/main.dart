@@ -113,41 +113,46 @@ class _MyHomePageState extends State<MyHomePage> {
                         onTap:
                             _changePlayerViewVisibility, //hides the player view
                         child: Container(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: const Icon(
                             Icons.arrow_back_ios_new,
-                            color: Colors.white70,
+                            color: Color.fromARGB(255, 248, 233, 161),
                           ),
                         ),
                       ),
                     ),
                     Flexible(
-                      flex: 5,
+                      flex: 10,
                       child: Text(
                         currentSongTitle,
                         style: const TextStyle(
-                          color: Colors.white70,
+                          color: Color.fromARGB(255, 248, 233, 161),
                           fontWeight: FontWeight.bold,
-                          fontSize: 18,
+                          fontSize: 22,
                         ),
                       ),
                     ),
                   ],
                 ),
 
-                //artwork container
-                Container(
-                  width: 300,
-                  height: 300,
-                  decoration: getDecoration(
-                      BoxShape.rectangle, const Offset(2, 2), 2.0, 0.0),
-                  margin: const EdgeInsets.only(top: 30, bottom: 30),
-                  child: QueryArtworkWidget(
-                    id: songs[currentIndex].id,
-                    type: ArtworkType.AUDIO,
-                    artworkBorder: BorderRadius.circular(200.0),
-                  ),
-                ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //artwork container
+                      Container(
+                        width: 300,
+                        height: 300,
+                        // decoration: getDecoration(
+                        //     BoxShape.rectangle, const Offset(2, 2), 2.0, 0.0),
+                        margin: const EdgeInsets.only(top: 80, bottom: 60),
+                        child: QueryArtworkWidget(
+                          id: songs[currentIndex].id,
+                          type: ArtworkType.AUDIO,
+                          artworkBorder: BorderRadius.circular(25.0),
+                        ),
+                      )
+                    ]),
 
                 //slider , position and duration widgets
                 Column(
@@ -171,11 +176,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           return ProgressBar(
                             progress: progress,
                             total: total,
-                            barHeight: 20.0,
+                            barHeight: 10.0,
                             baseBarColor: bgColor,
                             progressBarColor:
-                                Color.fromARGB(235, 163, 162, 162),
-                            thumbColor: Colors.white60.withBlue(99),
+                                const Color.fromARGB(255, 247, 108, 108),
+                            thumbColor: Color.fromARGB(255, 248, 233, 161),
                             timeLabelTextStyle: const TextStyle(
                               fontSize: 0,
                             ),
@@ -204,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Text(
                                 progress.toString().split(".")[0],
                                 style: const TextStyle(
-                                  color: Colors.white70,
+                                  color: Color.fromARGB(255, 168, 208, 230),
                                   fontSize: 15,
                                 ),
                               ),
@@ -213,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               child: Text(
                                 total.toString().split(".")[0],
                                 style: const TextStyle(
-                                  color: Colors.white70,
+                                  color: Color.fromARGB(255, 168, 208, 230),
                                   fontSize: 15,
                                 ),
                               ),
@@ -232,21 +237,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Flexible(
-                        child: InkWell(
-                          onTap: () {
-                            _player.setShuffleModeEnabled(true);
-                            toast(context, "Shuffling enabled");
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20.0),
-                            child: const Icon(
-                              Icons.shuffle,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ),
                       //skip to previous
                       Flexible(
                         child: InkWell(
@@ -256,10 +246,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: const Icon(
+                              size: 30,
                               Icons.skip_previous,
-                              color: Colors.white70,
+                              color: Color.fromARGB(255, 248, 233, 161),
                             ),
                           ),
                         ),
@@ -279,6 +270,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20.0),
+                            margin:
+                                const EdgeInsets.only(right: 20.0, left: 20.0),
                             child: StreamBuilder<bool>(
                               stream: _player.playingStream,
                               builder: (context, snapshot) {
@@ -286,14 +279,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 if (playingState != null && playingState) {
                                   return const Icon(
                                     Icons.pause,
-                                    size: 30,
-                                    color: Colors.white70,
+                                    size: 50,
+                                    color: Color.fromARGB(255, 248, 233, 161),
                                   );
                                 }
                                 return const Icon(
                                   Icons.play_arrow,
-                                  size: 30,
-                                  color: Colors.white70,
+                                  size: 50,
+                                  color: Color.fromARGB(255, 248, 233, 161),
                                 );
                               },
                             ),
@@ -310,43 +303,80 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: const Icon(
+                              size: 30,
                               Icons.skip_next,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: InkWell(
-                          onTap: () {
-                            _player.loopMode == LoopMode.one
-                                ? _player.setLoopMode(LoopMode.all)
-                                : _player.setLoopMode(LoopMode.one);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20.0),
-                            child: StreamBuilder<LoopMode>(
-                              stream: _player.loopModeStream,
-                              builder: (context, snapshot) {
-                                final loopMode = snapshot.data;
-                                if (LoopMode.one == loopMode) {
-                                  return const Icon(
-                                    Icons.repeat_one,
-                                    color: Colors.white70,
-                                  );
-                                }
-                                return const Icon(
-                                  Icons.repeat,
-                                  color: Colors.white70,
-                                );
-                              },
+                              color: Color.fromARGB(255, 248, 233, 161),
                             ),
                           ),
                         ),
                       ),
                     ],
+                  ),
+                ),
+
+                //go to playlist, shuffle , repeat all and repeat one control buttons
+                Container(
+                  margin: const EdgeInsets.only(top: 20, bottom: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    //children: [
+                    //   //go to playlist btn
+                    //   //shuffle playlist
+                    //   Flexible(
+                    //     child: InkWell(
+                    //       onTap: () {
+                    //         _player.setShuffleModeEnabled(true);
+                    //         toast(context, "Shuffling enabled");
+                    //       },
+                    //       child: Container(
+                    //         padding: const EdgeInsets.all(10.0),
+                    //         margin:
+                    //             const EdgeInsets.only(right: 30.0, left: 30.0),
+                    //         decoration: getDecoration(
+                    //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
+                    //         child: const Icon(
+                    //           Icons.shuffle,
+                    //           color: Colors.white70,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+
+                    //   //repeat mode
+                    //   Flexible(
+                    //     child: InkWell(
+                    //       onTap: () {
+                    //         _player.loopMode == LoopMode.one
+                    //             ? _player.setLoopMode(LoopMode.all)
+                    //             : _player.setLoopMode(LoopMode.one);
+                    //       },
+                    //       child: Container(
+                    //         padding: const EdgeInsets.all(10.0),
+                    //         decoration: getDecoration(
+                    //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
+                    //         child: StreamBuilder<LoopMode>(
+                    //           stream: _player.loopModeStream,
+                    //           builder: (context, snapshot) {
+                    //             final loopMode = snapshot.data;
+                    //             if (LoopMode.one == loopMode) {
+                    //               return const Icon(
+                    //                 Icons.repeat_one,
+                    //                 color: Colors.white70,
+                    //               );
+                    //             }
+                    //             return const Icon(
+                    //               Icons.repeat,
+                    //               color: Colors.white70,
+                    //             );
+                    //           },
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    //],
                   ),
                 ),
               ],
