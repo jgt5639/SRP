@@ -115,53 +115,64 @@ class MyHomeScreenState extends State<MyHomeScreen> {
               // You can use [item.data!] direct or you can create a list of songs as
               // List<SongModel> songs = item.data!;
               //showing the songs
-              return ListView.builder(
-                  itemCount: item.data!.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                     // color: Color.fromARGB(a, r, g, b)
-                      margin: const EdgeInsets.only(
-                          top: 50.0, left: 25.0, right: 25.0),
-                      padding: const EdgeInsets.only(top: 2.0, bottom: 2),
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(0, 248, 233, 161),
-                        //borderRadius: BorderRadius.circular(20.0),
-                        // boxShadow: const [
-                        //   BoxShadow(
-                        //     blurRadius: 4.0,
-                        //     offset: Offset(-4, -4),
-                        //     color: Colors.white24,
-                        //   ),
-                        //   BoxShadow(
-                        //     blurRadius: 4.0,
-                        //     offset: Offset(4, 4),
-                        //     color: Colors.black,
-                        //   ),
-                        // ],
-                      ),
-                      child: ListTile(
-                        textColor: Color.fromARGB(255, 248, 233, 161),
-                        title: Text(item.data![index].title),
-                        subtitle: Text(
-                          item.data![index].displayName,
-                          style: const TextStyle(
-                            color:Color.fromARGB(255, 168, 208, 230),
+              return RawScrollbar(
+                thumbVisibility: true,
+                thickness: 6,
+                thumbColor: Color.fromARGB(255, 247, 108, 108),
+                radius: Radius.circular(5),
+                crossAxisMargin: 5,
+                minThumbLength: 50,
+                child: ListView.builder(
+                    itemCount: item.data!.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        // color: Color.fromARGB(a, r, g, b)
+                        margin: const EdgeInsets.only(
+                            top: 50.0, left: 25.0, right: 25.0),
+                        padding: const EdgeInsets.only(top: 2.0, bottom: 2),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(0, 248, 233, 161),
+                          //borderRadius: BorderRadius.circular(20.0),
+                          // boxShadow: const [
+                          //   BoxShadow(
+                          //     blurRadius: 4.0,
+                          //     offset: Offset(-4, -4),
+                          //     color: Colors.white24,
+                          //   ),
+                          //   BoxShadow(
+                          //     blurRadius: 4.0,
+                          //     offset: Offset(4, 4),
+                          //     color: Colors.black,
+                          //   ),
+                          // ],
+                        ),
+
+                        child: ListTile(
+                          textColor: Color.fromARGB(255, 248, 233, 161),
+                          title: Text(item.data![index].title),
+                          subtitle: Text(
+                            item.data![index].displayName,
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 168, 208, 230),
+                            ),
                           ),
+                          trailing: const Icon(
+                            Icons.more_vert,
+                            color: Color.fromARGB(255, 248, 233, 161),
+                          ),
+                          leading: QueryArtworkWidget(
+                            id: item.data![index].id,
+                            type: ArtworkType.AUDIO,
+                          ),
+                          onTap: () {
+                            //toast message showing he selected song title
+                            toast(context,
+                                "You Selected:   ${item.data![index].title}");
+                          },
                         ),
-                        trailing: const Icon(Icons.more_vert,
-                        color: Color.fromARGB(255, 248, 233, 161),),
-                        leading: QueryArtworkWidget(
-                          id: item.data![index].id,
-                          type: ArtworkType.AUDIO,
-                        ),
-                        onTap: () {
-                          //toast message showing he selected song title
-                          toast(context, 
-                              "You Selected:   ${item.data![index].title}");
-                        },
-                      ),
-                    );
-                  });
+                      );
+                    }),
+              );
             },
           ),
         ));
@@ -220,7 +231,6 @@ class MyHomeScreenState extends State<MyHomeScreen> {
 //define a toast method
   void toast(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      
       content: Text((text)),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
@@ -279,7 +289,8 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(0, 247, 108, 108),//const Color.fromARGB(255, 36, 48, 94),
+      backgroundColor: Color.fromARGB(
+          0, 247, 108, 108), //const Color.fromARGB(255, 36, 48, 94),
       elevation: 0,
       leading: const Text(
         'Music Library',
