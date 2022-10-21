@@ -35,7 +35,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // bg color
   //Color bgColor = const Color(0XFF2A2A2A); //Colors.black;
-  Color bgColor = Colors.brown;
+  Color bgColor = const Color.fromARGB(255, 36, 48, 94);
+  Color twoColor = const Color.fromARGB(255, 55, 71, 133);
+  Color threeColor = const Color.fromARGB(255, 247, 108, 108);
+  Color fourColor = const Color.fromARGB(255, 248, 233, 161);
+  Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
 
   //define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
@@ -138,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 300,
                   height: 300,
                   decoration: getDecoration(
-                      BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
+                      BoxShape.rectangle, const Offset(2, 2), 2.0, 0.0),
                   margin: const EdgeInsets.only(top: 30, bottom: 30),
                   child: QueryArtworkWidget(
                     id: songs[currentIndex].id,
