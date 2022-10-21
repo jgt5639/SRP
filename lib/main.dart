@@ -114,8 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             _changePlayerViewVisibility, //hides the player view
                         child: Container(
                           padding: const EdgeInsets.all(10.0),
-                          decoration: getDecoration(
-                              BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
                           child: const Icon(
                             Icons.arrow_back_ios_new,
                             color: Colors.white70,
@@ -175,7 +173,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             total: total,
                             barHeight: 20.0,
                             baseBarColor: bgColor,
-                            progressBarColor: const Color(0xEE9E9E9E),
+                            progressBarColor:
+                                Color.fromARGB(235, 163, 162, 162),
                             thumbColor: Colors.white60.withBlue(99),
                             timeLabelTextStyle: const TextStyle(
                               fontSize: 0,
@@ -233,6 +232,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
+                      Flexible(
+                        child: InkWell(
+                          onTap: () {
+                            _player.setShuffleModeEnabled(true);
+                            toast(context, "Shuffling enabled");
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(20.0),
+                            margin:
+                                const EdgeInsets.only(right: 30.0, left: 30.0),
+                            decoration: getDecoration(
+                                BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
+                            child: const Icon(
+                              Icons.shuffle,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                      ),
                       //skip to previous
                       Flexible(
                         child: InkWell(
@@ -242,7 +260,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(20.0),
                             decoration: getDecoration(
                                 BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
                             child: const Icon(
@@ -302,7 +320,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(20.0),
                             decoration: getDecoration(
                                 BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
                             child: const Icon(
@@ -312,57 +330,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-
-                //go to playlist, shuffle , repeat all and repeat one control buttons
-                Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      //go to playlist btn
-                      Flexible(
-                        child: InkWell(
-                          onTap: () {
-                            _changePlayerViewVisibility();
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10.0),
-                            decoration: getDecoration(
-                                BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
-                            child: const Icon(
-                              Icons.list_alt,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      //shuffle playlist
-                      Flexible(
-                        child: InkWell(
-                          onTap: () {
-                            _player.setShuffleModeEnabled(true);
-                            toast(context, "Shuffling enabled");
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(10.0),
-                            margin:
-                                const EdgeInsets.only(right: 30.0, left: 30.0),
-                            decoration: getDecoration(
-                                BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
-                            child: const Icon(
-                              Icons.shuffle,
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      //repeat mode
                       Flexible(
                         child: InkWell(
                           onTap: () {
@@ -371,7 +338,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 : _player.setLoopMode(LoopMode.one);
                           },
                           child: Container(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(20.0),
+                            margin:
+                                const EdgeInsets.only(right: 20.0, left: 20.0),
                             decoration: getDecoration(
                                 BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
                             child: StreamBuilder<LoopMode>(
