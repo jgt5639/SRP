@@ -10,7 +10,11 @@ import 'widgets/seekbar.dart';
 class SongScreen extends StatefulWidget {
   String name;
   String artist;
-  SongScreen({required this.name, required this.artist});
+  SongScreen({
+    required this.name,
+    required this.artist,
+    String? path,
+  });
 
   @override
   State<SongScreen> createState() => _SongScreenState();
@@ -25,6 +29,7 @@ class _SongScreenState extends State<SongScreen> {
     super.initState();
 
     audioPlayer.setAudioSource(ConcatenatingAudioSource(children: [
+      AudioSource.uri(Uri.parse('')),
       AudioSource.uri(Uri.parse('asset:///audios/Guitar.mp3')),
       AudioSource.uri(Uri.parse('asset:///audios/8Bit.mp3')),
       AudioSource.uri(Uri.parse('asset:///audios/Simple.mp3')),

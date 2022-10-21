@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:senior_project/screens/song_screen.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io' as io;
 // Make New Function
 
 class MyHomeScreen extends StatefulWidget {
@@ -44,34 +40,6 @@ class MyHomeScreenState extends State<MyHomeScreen> {
       //print(file);
     });
   }
-
-  //Ok Not just need to populate this list with the list of songs
-  List<String> SampleList = [
-    'heyWIDTH CHECKERRrRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrRRRRRRRRRRRRRRRRRRRRRRRRRRRR',
-    "hows",
-    'it',
-    'going?',
-    'hey',
-    "hows",
-    'it',
-    'going?',
-    'hey',
-    "hows",
-    'it',
-    'going?',
-    'hey',
-    "hows",
-    'it',
-    'going?',
-    'hey',
-    "hows",
-    'it',
-    'going?',
-    'hey',
-    "hows",
-    'it',
-    'going?'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -121,8 +89,8 @@ class MyHomeScreenState extends State<MyHomeScreen> {
               return RawScrollbar(
                 thumbVisibility: true,
                 thickness: 6,
-                thumbColor: Color.fromARGB(255, 247, 108, 108),
-                radius: Radius.circular(5),
+                thumbColor: const Color.fromARGB(255, 247, 108, 108),
+                radius: const Radius.circular(5),
                 crossAxisMargin: 5,
                 minThumbLength: 50,
                 child: ListView.builder(
@@ -133,7 +101,7 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                         margin: const EdgeInsets.only(
                             top: 50.0, left: 25.0, right: 25.0),
                         padding: const EdgeInsets.only(top: 2.0, bottom: 2),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromARGB(0, 248, 233, 161),
                           //borderRadius: BorderRadius.circular(20.0),
                           // boxShadow: const [
@@ -151,7 +119,7 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                         ),
 
                         child: ListTile(
-                          textColor: Color.fromARGB(255, 248, 233, 161),
+                          textColor: const Color.fromARGB(255, 248, 233, 161),
                           title: Text(item.data![index].title),
                           subtitle: Text(
                             item.data![index].displayName,
@@ -175,9 +143,9 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SongScreen(
-                                        name: name,
-                                        artist: artist,
-                                      )),
+                                      name: name,
+                                      artist: artist,
+                                      path: item.data![index].uri)),
                             ); //   "${item.data![index].title}");
                           },
                         ),
@@ -300,7 +268,7 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color.fromARGB(
+      backgroundColor: const Color.fromARGB(
           0, 247, 108, 108), //const Color.fromARGB(255, 36, 48, 94),
       elevation: 0,
       leading: const Text(
@@ -321,6 +289,7 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
                   builder: (context) => SongScreen(
                         name: '',
                         artist: '',
+                        path: '',
                       )),
             );
           },
