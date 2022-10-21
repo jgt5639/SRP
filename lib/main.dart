@@ -446,30 +446,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 return Container(
                   margin:
                       const EdgeInsets.only(top: 15.0, left: 12.0, right: 16.0),
-                  padding: const EdgeInsets.only(top: 30.0, bottom: 30),
+                  padding: const EdgeInsets.only(top: 5, bottom: 5),
                   decoration: BoxDecoration(
-                    color: bgColor,
+                    color: twoColor,
                     borderRadius: BorderRadius.circular(20.0),
-                    boxShadow: const [
-                      BoxShadow(
-                        blurRadius: 4.0,
-                        offset: Offset(-4, -4),
-                        color: Colors.white24,
-                      ),
-                      BoxShadow(
-                        blurRadius: 4.0,
-                        offset: Offset(4, 4),
-                        color: Colors.black,
-                      ),
-                    ],
                   ),
                   child: ListTile(
-                    textColor: Colors.white,
+                    textColor: fourColor,
                     title: Text(item.data![index].title),
                     subtitle: Text(
                       item.data![index].displayName,
                       style: const TextStyle(
-                        color: Colors.white60,
+                        color: Color.fromARGB(255, 168, 208, 230),
                       ),
                     ),
                     trailing: const Icon(Icons.more_vert),
