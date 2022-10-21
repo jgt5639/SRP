@@ -240,8 +240,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20.0),
-                            margin:
-                                const EdgeInsets.only(right: 30.0, left: 30.0),
                             child: const Icon(
                               Icons.shuffle,
                               color: Colors.white70,
@@ -281,8 +279,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20.0),
-                            margin:
-                                const EdgeInsets.only(right: 20.0, left: 20.0),
                             child: StreamBuilder<bool>(
                               stream: _player.playingStream,
                               builder: (context, snapshot) {
@@ -331,8 +327,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(20.0),
-                            margin:
-                                const EdgeInsets.only(right: 20.0, left: 20.0),
                             child: StreamBuilder<LoopMode>(
                               stream: _player.loopModeStream,
                               builder: (context, snapshot) {
