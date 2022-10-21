@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
@@ -6,7 +8,9 @@ import 'widgets/player_buttons.dart';
 import 'widgets/seekbar.dart';
 
 class SongScreen extends StatefulWidget {
-  const SongScreen({Key? key}) : super(key: key);
+  String name;
+  String artist;
+  SongScreen({required this.name, required this.artist});
 
   @override
   State<SongScreen> createState() => _SongScreenState();
@@ -56,6 +60,8 @@ class _SongScreenState extends State<SongScreen> {
         _MusicPlayer(
           seekBarDataStream: _seekBarDataStream,
           audioPlayer: audioPlayer,
+          name: widget.name,
+          artist: widget.artist,
         )
       ]),
     );
@@ -63,15 +69,19 @@ class _SongScreenState extends State<SongScreen> {
 }
 
 class _MusicPlayer extends StatelessWidget {
-  const _MusicPlayer({
-    Key? key,
-    required Stream<SeekBarData> seekBarDataStream,
-    required this.audioPlayer,
-  })  : _seekBarDataStream = seekBarDataStream,
+  const _MusicPlayer(
+      {Key? key,
+      required Stream<SeekBarData> seekBarDataStream,
+      required this.audioPlayer,
+      required this.name,
+      required this.artist})
+      : _seekBarDataStream = seekBarDataStream,
         super(key: key);
 
   final Stream<SeekBarData> _seekBarDataStream;
   final AudioPlayer audioPlayer;
+  final String name;
+  final String artist;
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +105,12 @@ class _MusicPlayer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Title:',
+            Text(name,
                 style: TextStyle(
                   color: Color.fromARGB(255, 248, 233, 161),
                 )),
             const SizedBox(height: 30),
-            const Text('Artist:',
+            Text(artist,
                 style: TextStyle(color: Color.fromARGB(255, 168, 208, 230))),
             // const Center( ),
             const SizedBox(height: 30),

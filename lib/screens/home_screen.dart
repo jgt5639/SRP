@@ -19,6 +19,9 @@ class MyHomeScreenState extends State<MyHomeScreen> {
   // define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
+  String name = '';
+  String artist = '';
+
   List file = [];
 
   @override
@@ -165,9 +168,17 @@ class MyHomeScreenState extends State<MyHomeScreen> {
                             type: ArtworkType.AUDIO,
                           ),
                           onTap: () {
+                            name = item.data![index].title;
+                            artist = item.data![index].artist!;
                             //toast message showing he selected song title
-                            toast(context,
-                                "You Selected:   ${item.data![index].title}");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SongScreen(
+                                        name: name,
+                                        artist: artist,
+                                      )),
+                            ); //   "${item.data![index].title}");
                           },
                         ),
                       );
@@ -306,7 +317,11 @@ class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SongScreen()),
+              MaterialPageRoute(
+                  builder: (context) => SongScreen(
+                        name: '',
+                        artist: '',
+                      )),
             );
           },
         )
