@@ -175,14 +175,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 Material(
                   shadowColor: bgColor,
                   elevation: 20,
-                  color: Color.fromARGB(150, 55, 71, 133),
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  color: const Color.fromARGB(150, 55, 71, 133),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         shape: BoxShape.rectangle,
                         border: Border.all(
-                            color: Color.fromARGB(0, 0, 0, 0), width: 1)),
+                            color: const Color.fromARGB(0, 0, 0, 0), width: 1)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -534,17 +535,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
-                            item.data![index].data,
+                            item.data![index].displayNameWOExt,
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 168, 208, 230),
                             ),
                           ),
-                          // trailing: IconButton(
-                          //   color: const Color.fromARGB(255, 248, 233, 161),
-                          //   onPressed: () {},
-                          //   icon: const Icon(Icons.more_horiz),
-                          // ),
                           leading: QueryArtworkWidget(
                             artworkBorder: BorderRadius.circular(10.0),
                             id: item.data![index].id,
@@ -556,9 +552,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
                             toast(context,
                                 "Playing:  ${item.data![index].title}");
-                            // Try to load audio from a source and catch any errors.
-                            //  String? uri = item.data![index].uri;
-                            // await _player.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
                             await _player.setAudioSource(
                                 createPlaylist(item.data!),
                                 initialIndex: index);
