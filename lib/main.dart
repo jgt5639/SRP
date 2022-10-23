@@ -100,8 +100,14 @@ class _MyHomePageState extends State<MyHomePage> {
         body: SingleChildScrollView(
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(top: 56.0, right: 20.0, left: 20.0),
-            decoration: BoxDecoration(color: bgColor),
+            padding: const EdgeInsets.only(top: 50.0, right: 20.0, left: 20.0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [twoColor, bgColor],
+              ),
+            ),
             child: Column(
               children: <Widget>[
                 //exit button and the song title
@@ -415,93 +421,102 @@ class _MyHomePageState extends State<MyHomePage> {
               fontWeight: FontWeight.w600),
         ),
         //backgroundColor: bgColor,
-        elevation: 0,
+        elevation: 30,
         backgroundColor: bgColor,
       ),
       backgroundColor: bgColor,
-      body: FutureBuilder<List<SongModel>>(
-        //default values
-        future: _audioQuery.querySongs(
-          orderType: OrderType.ASC_OR_SMALLER,
-          uriType: UriType.EXTERNAL,
-          ignoreCase: true,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [bgColor, twoColor],
+          ),
         ),
-        builder: (context, item) {
-          //loading content indicator
-          if (item.data == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          //no songs found
-          if (item.data!.isEmpty) {
-            return const Center(
-              child: Text("No Songs Found"),
-            );
-          }
+        child: FutureBuilder<List<SongModel>>(
+          //default values
+          future: _audioQuery.querySongs(
+            orderType: OrderType.ASC_OR_SMALLER,
+            uriType: UriType.EXTERNAL,
+            ignoreCase: true,
+          ),
+          builder: (context, item) {
+            //loading content indicator
+            if (item.data == null) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            //no songs found
+            if (item.data!.isEmpty) {
+              return const Center(
+                child: Text("No Songs Found"),
+              );
+            }
 
-          // You can use [item.data!] direct or you can create a list of songs as
-          // List<SongModel> songs = item.data!;
-          //showing the songs
+            // You can use [item.data!] direct or you can create a list of songs as
+            // List<SongModel> songs = item.data!;
+            //showing the songs
 
-          //add songs to the song list
-          songs.clear();
-          songs = item.data!;
+            //add songs to the song list
+            songs.clear();
+            songs = item.data!;
 
-          return RawScrollbar(
-              //thumbVisibility: true,
-              crossAxisMargin: 3,
-              radius: Radius.circular(10.0),
-              thumbColor: Color.fromARGB(255, 247, 108, 108),
-              child: ListView.builder(
-                  itemCount: item.data!.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(
-                          top: 15.0, left: 20.0, right: 20.0),
-                      padding: const EdgeInsets.only(top: 5, bottom: 5),
-                      child: ListTile(
-                        selectedTileColor: fiveColor,
-                        textColor: fourColor,
-                        title: Text(
-                          item.data![index].title,
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w600),
-                        ),
-                        subtitle: Text(
-                          item.data![index].displayName,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromARGB(255, 168, 208, 230),
+            return RawScrollbar(
+                //thumbVisibility: true,
+                crossAxisMargin: 3,
+                radius: Radius.circular(10.0),
+                thumbColor: Color.fromARGB(255, 247, 108, 108),
+                child: ListView.builder(
+                    itemCount: item.data!.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: const EdgeInsets.only(
+                            top: 15.0, left: 20.0, right: 20.0),
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: ListTile(
+                          selectedTileColor: fiveColor,
+                          textColor: fourColor,
+                          title: Text(
+                            item.data![index].title,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600),
                           ),
-                        ),
-                        trailing: const Icon(
-                          Icons.more_horiz,
-                          color: Color.fromARGB(255, 248, 233, 161),
-                        ),
-                        leading: QueryArtworkWidget(
-                          artworkBorder: BorderRadius.circular(10.0),
-                          id: item.data![index].id,
-                          type: ArtworkType.AUDIO,
-                        ),
-                        onTap: () async {
-                          //show the player view
-                          _changePlayerViewVisibility();
+                          subtitle: Text(
+                            item.data![index].displayName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(255, 168, 208, 230),
+                            ),
+                          ),
+                          trailing: const Icon(
+                            Icons.more_horiz,
+                            color: Color.fromARGB(255, 248, 233, 161),
+                          ),
+                          leading: QueryArtworkWidget(
+                            artworkBorder: BorderRadius.circular(10.0),
+                            id: item.data![index].id,
+                            type: ArtworkType.AUDIO,
+                          ),
+                          onTap: () async {
+                            //show the player view
+                            _changePlayerViewVisibility();
 
-                          toast(
-                              context, "Playing:  ${item.data![index].title}");
-                          // Try to load audio from a source and catch any errors.
-                          //  String? uri = item.data![index].uri;
-                          // await _player.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-                          await _player.setAudioSource(
-                              createPlaylist(item.data!),
-                              initialIndex: index);
-                          await _player.play();
-                        },
-                      ),
-                    );
-                  }));
-        },
+                            toast(context,
+                                "Playing:  ${item.data![index].title}");
+                            // Try to load audio from a source and catch any errors.
+                            //  String? uri = item.data![index].uri;
+                            // await _player.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+                            await _player.setAudioSource(
+                                createPlaylist(item.data!),
+                                initialIndex: index);
+                            await _player.play();
+                          },
+                        ),
+                      );
+                    }));
+          },
+        ),
       ),
     );
   }
