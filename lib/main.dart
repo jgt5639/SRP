@@ -414,7 +414,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(
-          "Library",
+          "  Library",
           style: TextStyle(
               color: Color.fromARGB(255, 247, 108, 108),
               fontSize: 40,
@@ -464,7 +464,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             return RawScrollbar(
                 //thumbVisibility: true,
-                crossAxisMargin: 3,
+                crossAxisMargin: 4,
                 radius: Radius.circular(10.0),
                 thumbColor: Color.fromARGB(255, 247, 108, 108),
                 child: ListView.builder(
