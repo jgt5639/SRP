@@ -221,9 +221,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   total: total,
                                   barHeight: 7.0,
                                   baseBarColor:
-                                      const Color.fromARGB(255, 247, 108, 108),
+                                      const Color.fromARGB(125, 247, 108, 108),
                                   progressBarColor:
-                                      const Color.fromARGB(150, 8, 8, 8),
+                                      const Color.fromARGB(255, 247, 108, 108),
                                   thumbColor:
                                       const Color.fromARGB(255, 248, 233, 161),
                                   timeLabelTextStyle: const TextStyle(
