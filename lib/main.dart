@@ -73,7 +73,11 @@ class _MyHomePageState extends State<MyHomePage> {
   //define a method to set the player view visibility
   void _changePlayerViewVisibility() {
     setState(() {
-      isPlayerViewVisible = !isPlayerViewVisible;
+      if (isPlayerViewVisible == true) {
+        isPlayerViewVisible = false;
+      } else {
+        isPlayerViewVisible = true;
+      }
     });
   }
 
@@ -442,25 +446,35 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 40,
-        shape: const Border(
-            bottom: BorderSide(
-                width: 4, color: Color.fromARGB(255, 168, 208, 230))),
-
-        toolbarHeight: 100,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: const Text(
-          "Library",
-          style: TextStyle(
-              color: Color.fromARGB(255, 247, 108, 108),
-              fontSize: 40,
-              fontWeight: FontWeight.w600),
-        ),
-        //backgroundColor: bgColor,
-        elevation: 30,
-        backgroundColor: bgColor,
-      ),
+          titleSpacing: 40,
+          shape: const Border(
+              bottom: BorderSide(
+                  width: 4, color: Color.fromARGB(255, 168, 208, 230))),
+          toolbarHeight: 100,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: const Text(
+            "Library",
+            style: TextStyle(
+                color: Color.fromARGB(255, 247, 108, 108),
+                fontSize: 40,
+                fontWeight: FontWeight.w600),
+          ),
+          //backgroundColor: bgColor,
+          elevation: 30,
+          backgroundColor: bgColor,
+          actions: [
+            IconButton(
+              onPressed: () {
+                _changePlayerViewVisibility();
+              },
+              icon: const Icon(
+                Icons.play_arrow_outlined,
+                color: Color.fromARGB(255, 248, 233, 161),
+              ),
+              iconSize: 45,
+            )
+          ]),
       backgroundColor: bgColor,
       body: Container(
         decoration: BoxDecoration(
@@ -526,13 +540,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Color.fromARGB(255, 168, 208, 230),
                             ),
                           ),
-                          trailing: IconButton(
-                            color: Color.fromARGB(255, 248, 233, 161),
-                            onPressed: () {
-                              _changePlayerViewVisibility;
-                            },
-                            icon: Icon(Icons.more_horiz),
-                          ),
+                          // trailing: IconButton(
+                          //   color: const Color.fromARGB(255, 248, 233, 161),
+                          //   onPressed: () {},
+                          //   icon: const Icon(Icons.more_horiz),
+                          // ),
                           leading: QueryArtworkWidget(
                             artworkBorder: BorderRadius.circular(10.0),
                             id: item.data![index].id,
