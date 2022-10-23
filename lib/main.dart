@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: const TextStyle(
                               color: Color.fromARGB(255, 248, 233, 161),
                               fontWeight: FontWeight.bold,
-                              fontSize: 30,
+                              fontSize: 25,
                             ),
                           ),
                           Text(
@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             style: const TextStyle(
                               color: Color.fromARGB(255, 168, 208, 230),
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 18,
                             ),
                           ),
                         ],
@@ -156,13 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         width: 300,
                         height: 300,
-                        // decoration: getDecoration(
-                        //     BoxShape.rectangle, const Offset(2, 2), 2.0, 0.0),
-                        margin: const EdgeInsets.only(top: 80, bottom: 60),
+                        decoration: getDecoration(
+                            BoxShape.rectangle, const Offset(2, 2), 15.0, 5.0),
+                        margin: const EdgeInsets.only(top: 60, bottom: 50),
                         child: QueryArtworkWidget(
                           id: songs[currentIndex].id,
                           type: ArtworkType.AUDIO,
-                          artworkBorder: BorderRadius.circular(25.0),
+                          artworkBorder: BorderRadius.circular(1.0),
                         ),
                       )
                     ]),
@@ -174,8 +174,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       padding: EdgeInsets.zero,
                       margin: const EdgeInsets.only(bottom: 4.0),
-                      decoration: getRectDecoration(BorderRadius.circular(20.0),
-                          const Offset(2, 2), 2.0, 0.0),
+                      // decoration: getRectDecoration(BorderRadius.circular(20.0),
+                      //     const Offset(2, 2), 2.0, 0.0),
 
                       //slider bar duration state stream
                       child: StreamBuilder<DurationState>(
@@ -189,10 +189,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           return ProgressBar(
                             progress: progress,
                             total: total,
-                            barHeight: 10.0,
-                            baseBarColor: bgColor,
-                            progressBarColor:
-                                const Color.fromARGB(255, 247, 108, 108),
+                            barHeight: 7.0,
+                            baseBarColor: Color.fromARGB(255, 247, 108, 108),
+                            progressBarColor: Color.fromARGB(150, 8, 8, 8),
                             thumbColor:
                                 const Color.fromARGB(255, 248, 233, 161),
                             timeLabelTextStyle: const TextStyle(
@@ -246,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 //prev, play/pause & seek next control buttons
                 Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 20),
+                  margin: const EdgeInsets.only(top: 5, bottom: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
@@ -403,7 +402,11 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(
+          "Library",
+          style: TextStyle(
+              color: Color.fromARGB(255, 247, 108, 108), fontSize: 30),
+        ),
         //backgroundColor: bgColor,
         elevation: 20,
         backgroundColor: bgColor,
@@ -437,46 +440,54 @@ class _MyHomePageState extends State<MyHomePage> {
           //add songs to the song list
           songs.clear();
           songs = item.data!;
-          return ListView.builder(
-              itemCount: item.data!.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin:
-                      const EdgeInsets.only(top: 15.0, left: 12.0, right: 16.0),
-                  padding: const EdgeInsets.only(top: 5, bottom: 5),
-                  decoration: BoxDecoration(
-                    color: twoColor,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: ListTile(
-                    textColor: fourColor,
-                    title: Text(item.data![index].title),
-                    subtitle: Text(
-                      item.data![index].displayName,
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 168, 208, 230),
-                      ),
-                    ),
-                    trailing: const Icon(Icons.more_vert),
-                    leading: QueryArtworkWidget(
-                      id: item.data![index].id,
-                      type: ArtworkType.AUDIO,
-                    ),
-                    onTap: () async {
-                      //show the player view
-                      _changePlayerViewVisibility();
 
-                      toast(context, "Playing:  ${item.data![index].title}");
-                      // Try to load audio from a source and catch any errors.
-                      //  String? uri = item.data![index].uri;
-                      // await _player.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
-                      await _player.setAudioSource(createPlaylist(item.data!),
-                          initialIndex: index);
-                      await _player.play();
-                    },
-                  ),
-                );
-              });
+          return RawScrollbar(
+              //thumbVisibility: true,
+              crossAxisMargin: 3,
+              radius: Radius.circular(10.0),
+              thumbColor: Color.fromARGB(255, 247, 108, 108),
+              child: ListView.builder(
+                  itemCount: item.data!.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                          top: 15.0, left: 12.0, right: 16.0),
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      decoration: BoxDecoration(
+                        color: twoColor,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: ListTile(
+                        textColor: fourColor,
+                        title: Text(item.data![index].title),
+                        subtitle: Text(
+                          item.data![index].displayName,
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 168, 208, 230),
+                          ),
+                        ),
+                        trailing: const Icon(Icons.more_vert),
+                        leading: QueryArtworkWidget(
+                          id: item.data![index].id,
+                          type: ArtworkType.AUDIO,
+                        ),
+                        onTap: () async {
+                          //show the player view
+                          _changePlayerViewVisibility();
+
+                          toast(
+                              context, "Playing:  ${item.data![index].title}");
+                          // Try to load audio from a source and catch any errors.
+                          //  String? uri = item.data![index].uri;
+                          // await _player.setAudioSource(AudioSource.uri(Uri.parse(uri!)));
+                          await _player.setAudioSource(
+                              createPlaylist(item.data!),
+                              initialIndex: index);
+                          await _player.play();
+                        },
+                      ),
+                    );
+                  }));
         },
       ),
     );
@@ -532,13 +543,13 @@ class _MyHomePageState extends State<MyHomePage> {
       boxShadow: [
         BoxShadow(
           offset: -offset,
-          color: Colors.white24,
+          color: Color.fromARGB(125, 168, 208, 230),
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
         ),
         BoxShadow(
           offset: offset,
-          color: Colors.black,
+          color: Color.fromARGB(50, 248, 233, 161),
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
         )
@@ -546,27 +557,27 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  BoxDecoration getRectDecoration(BorderRadius borderRadius, Offset offset,
-      double blurRadius, double spreadRadius) {
-    return BoxDecoration(
-      borderRadius: borderRadius,
-      color: bgColor,
-      boxShadow: [
-        BoxShadow(
-          offset: -offset,
-          color: Colors.white24,
-          blurRadius: blurRadius,
-          spreadRadius: spreadRadius,
-        ),
-        BoxShadow(
-          offset: offset,
-          color: Colors.black,
-          blurRadius: blurRadius,
-          spreadRadius: spreadRadius,
-        )
-      ],
-    );
-  }
+  // BoxDecoration getRectDecoration(BorderRadius borderRadius, Offset offset,
+  //     double blurRadius, double spreadRadius) {
+  //   return BoxDecoration(
+  //     borderRadius: borderRadius,
+  //     color: Color.fromARGB(255, 247, 108, 108),
+  //     boxShadow: [
+  //       BoxShadow(
+  //         offset: -offset,
+  //         color: Colors.white24,
+  //         blurRadius: blurRadius,
+  //         spreadRadius: spreadRadius,
+  //       ),
+  //       BoxShadow(
+  //         offset: offset,
+  //         color: Colors.black,
+  //         blurRadius: blurRadius,
+  //         spreadRadius: spreadRadius,
+  //       )
+  //     ],
+  //   );
+  // }
 }
 
 //duration class
