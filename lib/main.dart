@@ -400,15 +400,22 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Scaffold(
       appBar: AppBar(
+        shape: Border(
+            bottom: BorderSide(
+                width: 4, color: Color.fromARGB(255, 168, 208, 230))),
+
+        toolbarHeight: 100,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(
           "Library",
           style: TextStyle(
-              color: Color.fromARGB(255, 247, 108, 108), fontSize: 30),
+              color: Color.fromARGB(255, 247, 108, 108),
+              fontSize: 40,
+              fontWeight: FontWeight.w600),
         ),
         //backgroundColor: bgColor,
-        elevation: 20,
+        elevation: 0,
         backgroundColor: bgColor,
       ),
       backgroundColor: bgColor,
@@ -451,23 +458,29 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemBuilder: (context, index) {
                     return Container(
                       margin: const EdgeInsets.only(
-                          top: 15.0, left: 12.0, right: 16.0),
+                          top: 15.0, left: 20.0, right: 20.0),
                       padding: const EdgeInsets.only(top: 5, bottom: 5),
-                      decoration: BoxDecoration(
-                        color: twoColor,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
                       child: ListTile(
+                        selectedTileColor: fiveColor,
                         textColor: fourColor,
-                        title: Text(item.data![index].title),
+                        title: Text(
+                          item.data![index].title,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w600),
+                        ),
                         subtitle: Text(
                           item.data![index].displayName,
                           style: const TextStyle(
+                            fontWeight: FontWeight.w500,
                             color: Color.fromARGB(255, 168, 208, 230),
                           ),
                         ),
-                        trailing: const Icon(Icons.more_vert),
+                        trailing: const Icon(
+                          Icons.more_horiz,
+                          color: Color.fromARGB(255, 248, 233, 161),
+                        ),
                         leading: QueryArtworkWidget(
+                          artworkBorder: BorderRadius.circular(10.0),
                           id: item.data![index].id,
                           type: ArtworkType.AUDIO,
                         ),
