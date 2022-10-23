@@ -1,9 +1,11 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:senior_project/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,10 +22,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Songs'),
+      home: AnimatedSplashScreen(
+        backgroundColor: Color.fromARGB(255, 36, 48, 94),
+        duration: 3000,
+        splashTransition: SplashTransition.sizeTransition,
+        curve: Curves.easeInCirc,
+        splash: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(Icons.music_note_outlined,
+                color: Color.fromARGB(255, 247, 108, 108), size: 50),
+          ],
+        )),
+        nextScreen: const MyHomePage(title: "Songs"),
+      ),
     );
   }
 }
+//MyHomePage(title: 'Songs')
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -406,14 +423,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Scaffold(
       appBar: AppBar(
-        shape: Border(
+        shape: const Border(
             bottom: BorderSide(
                 width: 4, color: Color.fromARGB(255, 168, 208, 230))),
 
         toolbarHeight: 100,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(
+        title: const Text(
           "  Library",
           style: TextStyle(
               color: Color.fromARGB(255, 247, 108, 108),
@@ -479,7 +496,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           textColor: fourColor,
                           title: Text(
                             item.data![index].title,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
