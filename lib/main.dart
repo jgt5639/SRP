@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
-            Icon(Icons.music_note_outlined,
+            Icon(Icons.library_music,
                 color: Color.fromARGB(255, 247, 108, 108), size: 75),
           ],
         )),
@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//MyHomePage(title: 'Songs')
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -49,7 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // bg color
   //Color bgColor = const Color(0XFF2A2A2A); //Colors.black;
   Color bgColor = const Color.fromARGB(255, 36, 48, 94);
   Color twoColor = const Color.fromARGB(255, 55, 71, 133);
@@ -374,68 +372,68 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
 
                 //go to playlist, shuffle , repeat all and repeat one control buttons
-                Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    //children: [
-                    //   //go to playlist btn
-                    //   //shuffle playlist
-                    //   Flexible(
-                    //     child: InkWell(
-                    //       onTap: () {
-                    //         _player.setShuffleModeEnabled(true);
-                    //         toast(context, "Shuffling enabled");
-                    //       },
-                    //       child: Container(
-                    //         padding: const EdgeInsets.all(10.0),
-                    //         margin:
-                    //             const EdgeInsets.only(right: 30.0, left: 30.0),
-                    //         decoration: getDecoration(
-                    //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
-                    //         child: const Icon(
-                    //           Icons.shuffle,
-                    //           color: Colors.white70,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
+                // Container(
+                //   margin: const EdgeInsets.only(top: 20, bottom: 20),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     mainAxisSize: MainAxisSize.max,
+                //     //children: [
+                //     //   //go to playlist btn
+                //     //   //shuffle playlist
+                //     //   Flexible(
+                //     //     child: InkWell(
+                //     //       onTap: () {
+                //     //         _player.setShuffleModeEnabled(true);
+                //     //         toast(context, "Shuffling enabled");
+                //     //       },
+                //     //       child: Container(
+                //     //         padding: const EdgeInsets.all(10.0),
+                //     //         margin:
+                //     //             const EdgeInsets.only(right: 30.0, left: 30.0),
+                //     //         decoration: getDecoration(
+                //     //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
+                //     //         child: const Icon(
+                //     //           Icons.shuffle,
+                //     //           color: Colors.white70,
+                //     //         ),
+                //     //       ),
+                //     //     ),
+                //     //   ),
 
-                    //   //repeat mode
-                    //   Flexible(
-                    //     child: InkWell(
-                    //       onTap: () {
-                    //         _player.loopMode == LoopMode.one
-                    //             ? _player.setLoopMode(LoopMode.all)
-                    //             : _player.setLoopMode(LoopMode.one);
-                    //       },
-                    //       child: Container(
-                    //         padding: const EdgeInsets.all(10.0),
-                    //         decoration: getDecoration(
-                    //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
-                    //         child: StreamBuilder<LoopMode>(
-                    //           stream: _player.loopModeStream,
-                    //           builder: (context, snapshot) {
-                    //             final loopMode = snapshot.data;
-                    //             if (LoopMode.one == loopMode) {
-                    //               return const Icon(
-                    //                 Icons.repeat_one,
-                    //                 color: Colors.white70,
-                    //               );
-                    //             }
-                    //             return const Icon(
-                    //               Icons.repeat,
-                    //               color: Colors.white70,
-                    //             );
-                    //           },
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    //],
-                  ),
-                ),
+                //     //   //repeat mode
+                //     //   Flexible(
+                //     //     child: InkWell(
+                //     //       onTap: () {
+                //     //         _player.loopMode == LoopMode.one
+                //     //             ? _player.setLoopMode(LoopMode.all)
+                //     //             : _player.setLoopMode(LoopMode.one);
+                //     //       },
+                //     //       child: Container(
+                //     //         padding: const EdgeInsets.all(10.0),
+                //     //         decoration: getDecoration(
+                //     //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
+                //     //         child: StreamBuilder<LoopMode>(
+                //     //           stream: _player.loopModeStream,
+                //     //           builder: (context, snapshot) {
+                //     //             final loopMode = snapshot.data;
+                //     //             if (LoopMode.one == loopMode) {
+                //     //               return const Icon(
+                //     //                 Icons.repeat_one,
+                //     //                 color: Colors.white70,
+                //     //               );
+                //     //             }
+                //     //             return const Icon(
+                //     //               Icons.repeat,
+                //     //               color: Colors.white70,
+                //     //             );
+                //     //           },
+                //     //         ),
+                //     //       ),
+                //     //     ),
+                //     //   ),
+                //     //],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -530,7 +528,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           trailing: IconButton(
                             color: Color.fromARGB(255, 248, 233, 161),
-                            onPressed: () {},
+                            onPressed: () {
+                              _changePlayerViewVisibility;
+                            },
                             icon: Icon(Icons.more_horiz),
                           ),
                           leading: QueryArtworkWidget(
@@ -624,28 +624,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
   }
-
-  // BoxDecoration getRectDecoration(BorderRadius borderRadius, Offset offset,
-  //     double blurRadius, double spreadRadius) {
-  //   return BoxDecoration(
-  //     borderRadius: borderRadius,
-  //     color: Color.fromARGB(255, 247, 108, 108),
-  //     boxShadow: [
-  //       BoxShadow(
-  //         offset: -offset,
-  //         color: Colors.white24,
-  //         blurRadius: blurRadius,
-  //         spreadRadius: spreadRadius,
-  //       ),
-  //       BoxShadow(
-  //         offset: offset,
-  //         color: Colors.black,
-  //         blurRadius: blurRadius,
-  //         spreadRadius: spreadRadius,
-  //       )
-  //     ],
-  //   );
-  // }
 }
 
 //duration class
