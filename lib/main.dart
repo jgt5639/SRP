@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.music_note_outlined,
-                color: Color.fromARGB(255, 247, 108, 108), size: 50),
+                color: Color.fromARGB(255, 247, 108, 108), size: 80),
           ],
         )),
         nextScreen: const MyHomePage(title: "Songs"),
@@ -423,6 +423,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 40,
         shape: const Border(
             bottom: BorderSide(
                 width: 4, color: Color.fromARGB(255, 168, 208, 230))),
@@ -431,7 +432,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: const Text(
-          "  Library",
+          "Library",
           style: TextStyle(
               color: Color.fromARGB(255, 247, 108, 108),
               fontSize: 40,
