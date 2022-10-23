@@ -171,14 +171,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
 
                 Material(
-                  elevation: 10,
-                  color: bgColor,
+                  shadowColor: bgColor,
+                  elevation: 20,
+                  color: Color.fromARGB(150, 55, 71, 133),
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(15)),
                         shape: BoxShape.rectangle,
-                        border: Border.all(color: Colors.black, width: 3)),
+                        border: Border.all(
+                            color: Color.fromARGB(0, 0, 0, 0), width: 1)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
