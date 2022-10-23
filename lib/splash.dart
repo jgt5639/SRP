@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:senior_project/main.dart';
 
@@ -36,11 +34,8 @@ class _SplashState extends State<Splash> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              //Icon for Splash Screen here.
-              child: const Icon(Icons.music_note_outlined,
-                  color: Color.fromARGB(255, 247, 108, 108), size: 50),
-            )
+            const Icon(Icons.music_note_outlined,
+                color: Color.fromARGB(255, 247, 108, 108), size: 50)
           ],
         )));
   }

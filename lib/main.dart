@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:senior_project/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: AnimatedSplashScreen(
-        backgroundColor: Color.fromARGB(255, 36, 48, 94),
+        backgroundColor: const Color.fromARGB(255, 36, 48, 94),
         duration: 3000,
         splashTransition: SplashTransition.sizeTransition,
         curve: Curves.easeInCirc,
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(Icons.music_note_outlined,
-                color: Color.fromARGB(255, 247, 108, 108), size: 80),
+                color: Color.fromARGB(255, 247, 108, 108), size: 75),
           ],
         )),
         nextScreen: const MyHomePage(title: "Songs"),
@@ -213,8 +212,10 @@ class _MyHomePageState extends State<MyHomePage> {
                             progress: progress,
                             total: total,
                             barHeight: 7.0,
-                            baseBarColor: Color.fromARGB(255, 247, 108, 108),
-                            progressBarColor: Color.fromARGB(150, 8, 8, 8),
+                            baseBarColor:
+                                const Color.fromARGB(255, 247, 108, 108),
+                            progressBarColor:
+                                const Color.fromARGB(150, 8, 8, 8),
                             thumbColor:
                                 const Color.fromARGB(255, 248, 233, 161),
                             timeLabelTextStyle: const TextStyle(
@@ -483,8 +484,8 @@ class _MyHomePageState extends State<MyHomePage> {
             return RawScrollbar(
                 //thumbVisibility: true,
                 crossAxisMargin: 4,
-                radius: Radius.circular(10.0),
-                thumbColor: Color.fromARGB(255, 247, 108, 108),
+                radius: const Radius.circular(10.0),
+                thumbColor: const Color.fromARGB(255, 247, 108, 108),
                 child: ListView.builder(
                     itemCount: item.data!.length,
                     itemBuilder: (context, index) {
@@ -501,7 +502,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 fontSize: 18, fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
-                            item.data![index].displayName,
+                            item.data![index].data,
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(255, 168, 208, 230),
@@ -589,13 +590,13 @@ class _MyHomePageState extends State<MyHomePage> {
       boxShadow: [
         BoxShadow(
           offset: -offset,
-          color: Color.fromARGB(125, 168, 208, 230),
+          color: const Color.fromARGB(125, 168, 208, 230),
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
         ),
         BoxShadow(
           offset: offset,
-          color: Color.fromARGB(50, 248, 233, 161),
+          color: const Color.fromARGB(50, 248, 233, 161),
           blurRadius: blurRadius,
           spreadRadius: spreadRadius,
         )

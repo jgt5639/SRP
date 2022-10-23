@@ -7,6 +7,7 @@ import 'package:rxdart/rxdart.dart' as rxdart;
 import 'widgets/player_buttons.dart';
 import 'widgets/seekbar.dart';
 
+// ignore: must_be_immutable
 class SongScreen extends StatefulWidget {
   String name;
   String artist;
@@ -111,12 +112,13 @@ class _MusicPlayer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Color.fromARGB(255, 248, 233, 161),
                 )),
             const SizedBox(height: 30),
             Text(artist,
-                style: TextStyle(color: Color.fromARGB(255, 168, 208, 230))),
+                style:
+                    const TextStyle(color: Color.fromARGB(255, 168, 208, 230))),
             // const Center( ),
             const SizedBox(height: 30),
             StreamBuilder<SeekBarData>(
