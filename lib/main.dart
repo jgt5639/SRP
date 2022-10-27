@@ -477,6 +477,7 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ]),
       backgroundColor: bgColor,
+      bottomNavigationBar: const _CustomNavBar(),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -635,4 +636,40 @@ class _MyHomePageState extends State<MyHomePage> {
 class DurationState {
   DurationState({this.position = Duration.zero, this.total = Duration.zero});
   Duration position, total;
+}
+
+// custom Navigation Bar
+class _CustomNavBar extends StatelessWidget {
+  const _CustomNavBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    int selectedIndex = 0;
+    return BottomNavigationBar(
+      backgroundColor: const Color.fromARGB(255, 55, 71, 133),
+      unselectedItemColor: const Color.fromARGB(255, 247, 108, 108),
+      selectedItemColor: const Color.fromARGB(255, 248, 233, 161),
+      type: BottomNavigationBarType.fixed,
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: "Home",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.play_circle_fill_outlined),
+          label: "Play",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.upload_file_rounded),
+          label: "Unknown Files",
+        ),
+      ],
+      currentIndex: selectedIndex,
+      onTap: onItemTapped,
+    );
+  }
+
+  void onItemTapped(int value) {}
 }
