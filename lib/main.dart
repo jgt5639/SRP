@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -54,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color threeColor = const Color.fromARGB(255, 247, 108, 108);
   Color fourColor = const Color.fromARGB(255, 248, 233, 161);
   Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
+  List<Color> OppList = [Colors.white, Colors.white];
 
   //define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
@@ -110,6 +114,44 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  List<Color> colorChange() {
+    //Color variables to send back.
+    Color colorone = Colors.white, colortwo = Colors.white;
+
+    //Establishing Color Pairs.
+    Color ColorPair1_1 = Colors.deepPurple,
+        ColorPair1_2 = Colors.blueAccent; //Appears
+    Color ColorPair2_1 = Colors.blueAccent,
+        ColorPair2_2 = Colors.greenAccent; //Appears
+    Color ColorPair3_1 = Colors.yellow,
+        ColorPair3_2 = Colors.deepOrange; //Apears
+    Color ColorPair4_1 = Colors.deepOrange, ColorPair4_2 = Colors.deepPurple;
+    //Random number generation.
+    Random random = new Random();
+    int randomNumber = random.nextInt(5);
+
+    if (randomNumber <= 1) {
+      colorone = ColorPair1_1;
+      colortwo = ColorPair1_2;
+      OppList = [ColorPair1_1, ColorPair1_2];
+    } else if (randomNumber == 2) {
+      colorone = ColorPair2_1;
+      colortwo = ColorPair2_2;
+      OppList = [ColorPair2_1, ColorPair2_2];
+    } else if (randomNumber == 3) {
+      colorone = ColorPair3_1;
+      colortwo = ColorPair3_2;
+      OppList = [ColorPair3_1, ColorPair3_2];
+    } else {
+      colorone = ColorPair4_1;
+      colortwo = ColorPair4_2;
+      OppList = [ColorPair4_1, ColorPair4_2];
+    }
+
+    List<Color> MyList = [colorone, colortwo];
+    return MyList;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isPlayerViewVisible) {
@@ -123,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [twoColor, bgColor],
+                colors: colorChange(),
               ),
             ),
             child: Column(
@@ -179,6 +221,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                   child: Container(
                     decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: OppList,
+                        ),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15)),
                         shape: BoxShape.rectangle,
