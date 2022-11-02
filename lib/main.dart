@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/foundation.dart';
@@ -57,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Color threeColor = const Color.fromARGB(255, 247, 108, 108);
   Color fourColor = const Color.fromARGB(255, 248, 233, 161);
   Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
-  List<Color> OppList = [Colors.white, Colors.white];
+  List<Color> oppList = [Colors.white, Colors.white];
 
   //define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
@@ -119,37 +117,36 @@ class _MyHomePageState extends State<MyHomePage> {
     Color colorone = Colors.white, colortwo = Colors.white;
 
     //Establishing Color Pairs.
-    Color ColorPair1_1 = Colors.deepPurple,
-        ColorPair1_2 = Colors.blueAccent; //Appears
-    Color ColorPair2_1 = Colors.blueAccent,
-        ColorPair2_2 = Colors.greenAccent; //Appears
-    Color ColorPair3_1 = Colors.yellow,
-        ColorPair3_2 = Colors.deepOrange; //Apears
-    Color ColorPair4_1 = Colors.deepOrange, ColorPair4_2 = Colors.deepPurple;
+    Color colorPair11 = Colors.deepPurple,
+        colorPair12 = Colors.blueAccent; //Appears
+    Color colorPair21 = Colors.blueAccent,
+        colorPair22 = Colors.greenAccent; //Appears
+    Color colorPair31 = Colors.yellow, colorPair32 = Colors.deepOrange; //Apears
+    Color colorPair41 = Colors.deepOrange, colorPair42 = Colors.deepPurple;
     //Random number generation.
-    Random random = new Random();
+    Random random = Random();
     int randomNumber = random.nextInt(5);
 
     if (randomNumber <= 1) {
-      colorone = ColorPair1_1;
-      colortwo = ColorPair1_2;
-      OppList = [ColorPair1_1, ColorPair1_2];
+      colorone = colorPair11;
+      colortwo = colorPair12;
+      oppList = [colorPair11, colorPair12];
     } else if (randomNumber == 2) {
-      colorone = ColorPair2_1;
-      colortwo = ColorPair2_2;
-      OppList = [ColorPair2_1, ColorPair2_2];
+      colorone = colorPair21;
+      colortwo = colorPair22;
+      oppList = [colorPair21, colorPair22];
     } else if (randomNumber == 3) {
-      colorone = ColorPair3_1;
-      colortwo = ColorPair3_2;
-      OppList = [ColorPair3_1, ColorPair3_2];
+      colorone = colorPair31;
+      colortwo = colorPair32;
+      oppList = [colorPair31, colorPair32];
     } else {
-      colorone = ColorPair4_1;
-      colortwo = ColorPair4_2;
-      OppList = [ColorPair4_1, ColorPair4_2];
+      colorone = colorPair41;
+      colortwo = colorPair42;
+      oppList = [colorPair41, colorPair42];
     }
 
-    List<Color> MyList = [colorone, colortwo];
-    return MyList;
+    List<Color> myList = [colorone, colortwo];
+    return myList;
   }
 
   @override
@@ -224,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: OppList,
+                          colors: oppList,
                         ),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15)),

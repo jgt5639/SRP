@@ -1,235 +1,150 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:on_audio_query/on_audio_query.dart';
-import 'package:senior_project/screens/song_screen.dart';
-// Make New Function
 
 class MyHomeScreen extends StatefulWidget {
-  const MyHomeScreen({super.key});
+  const MyHomeScreen({Key? key}) : super(key: key);
 
   @override
   MyHomeScreenState createState() => MyHomeScreenState();
 }
 
 class MyHomeScreenState extends State<MyHomeScreen> {
-  // define on audio plugin
-  final OnAudioQuery _audioQuery = OnAudioQuery();
+  int pageIndex = 0;
 
-  String name = '';
-  String artist = '';
+  final pages = [
+    const Page1(),
+    const Page2(),
+    const Page3(),
+    const Page4(),
+  ];
 
-  List file = [];
-
-  @override
-  void initState() {
-    super.initState();
-    requestStoragePermission();
-    _listofFiles();
-  }
-
-  void _listofFiles() async {
-    //Directory? directory = (await getExternalStorageDirectory());
-    setState(() {
-      //print(
-      // "PRINTING HERE MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-      //print(file);
-
-      ///data/user/0/com.example.senior_project/app_flutter/audios/
-      //file = io.Directory("$directory/audios/").listSync();
-
-      //print(file);
-    });
-  }
+  List<Widget> pageList = [
+    const Page1(),
+    const Page2(),
+    const Page3(),
+    const Page4(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.zero,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 36, 48, 94),
-              Color.fromARGB(255, 55, 71, 133),
-            ],
+    return Scaffold(
+      backgroundColor: const Color(0xffC4DFCB),
+      appBar: AppBar(
+        leading: Icon(
+          Icons.menu,
+          color: Theme.of(context).primaryColor,
+        ),
+        title: Text(
+          "Geeks For Geeks",
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontSize: 25,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: const _CustomeAppBar(),
-          //Comment out the bottomNavigationBar below this line to make the bottom set of button disappear.
-          bottomNavigationBar: const _CustomNavBar(),
-          ///////
-          body: FutureBuilder<List<SongModel>>(
-            //default values
-            future: _audioQuery.querySongs(
-              orderType: OrderType.ASC_OR_SMALLER,
-              uriType: UriType.INTERNAL,
-              ignoreCase: true,
-              //path:
-            ),
-            builder: (context, item) {
-              //loading content indicator
-              if (item.data == null) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              //no songs found
-              if (item.data!.isEmpty) {
-                return const Center(
-                  child: Text("No Songs Found"),
-                );
-              }
-
-              // You can use [item.data!] direct or you can create a list of songs as
-              // List<SongModel> songs = item.data!;
-              //showing the songs
-              return RawScrollbar(
-                thumbVisibility: true,
-                thickness: 6,
-                thumbColor: const Color.fromARGB(255, 247, 108, 108),
-                radius: const Radius.circular(5),
-                crossAxisMargin: 5,
-                minThumbLength: 50,
-                child: ListView.builder(
-                    itemCount: item.data!.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        // color: Color.fromARGB(a, r, g, b)
-                        margin: const EdgeInsets.only(
-                            top: 50.0, left: 25.0, right: 25.0),
-                        padding: const EdgeInsets.only(top: 2.0, bottom: 2),
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(0, 248, 233, 161),
-                          //borderRadius: BorderRadius.circular(20.0),
-                          // boxShadow: const [
-                          //   BoxShadow(
-                          //     blurRadius: 4.0,
-                          //     offset: Offset(-4, -4),
-                          //     color: Colors.white24,
-                          //   ),
-                          //   BoxShadow(
-                          //     blurRadius: 4.0,
-                          //     offset: Offset(4, 4),
-                          //     color: Colors.black,
-                          //   ),
-                          // ],
-                        ),
-
-                        child: ListTile(
-                          textColor: const Color.fromARGB(255, 248, 233, 161),
-                          title: Text(item.data![index].title),
-                          subtitle: Text(
-                            item.data![index].displayName,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 168, 208, 230),
-                            ),
-                          ),
-                          trailing: const Icon(
-                            Icons.more_vert,
-                            color: Color.fromARGB(255, 248, 233, 161),
-                          ),
-                          leading: QueryArtworkWidget(
-                            id: item.data![index].id,
-                            type: ArtworkType.AUDIO,
-                          ),
-                          onTap: () {
-                            name = item.data![index].title;
-                            artist = item.data![index].artist!;
-                            //toast message showing he selected song title
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SongScreen(
-                                      name: name,
-                                      artist: artist,
-                                      path: item.data![index].uri)),
-                            ); //   "${item.data![index].title}");
-                          },
-                        ),
-                      );
-                    }),
-              );
-            },
-          ),
-        ));
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
+      body: pages[pageIndex],
+      bottomNavigationBar: buildMyNavBar(context),
+    );
   }
 
-  /*body:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 250,
-            width: MediaQuery.of(context).size.width - 25,
-            child: ListView.separated(
-              itemCount: SampleList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Text(SampleList[index]);
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(thickness: 1),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(10),
-          ),
-          SizedBox(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    tooltip: "Home",
-                    icon: const Icon(Icons.home),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    tooltip: "Play",
-                    icon: const Icon(Icons.play_circle_fill_outlined),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SongScreen()),
-                      );
-                    },
-                  ),
-                  IconButton(
-                    tooltip: "Unknown Files",
-                    icon: const Icon(Icons.upload_file_rounded),
-                    onPressed: () async {},
+  Container buildMyNavBar(BuildContext context) {
+    return Container(
+      height: 60,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 0;
+              });
+            },
+            icon: pageIndex == 0
+                ? const Icon(
+                    Icons.home_filled,
+                    color: Colors.white,
+                    size: 35,
                   )
-                ]),
-          )
-        ]),
-      
+                : const Icon(
+                    Icons.home_outlined,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 1;
+              });
+            },
+            icon: pageIndex == 1
+                ? const Icon(
+                    Icons.work_rounded,
+                    color: Colors.white,
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.work_outline_outlined,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 2;
+              });
+            },
+            icon: pageIndex == 2
+                ? const Icon(
+                    Icons.widgets_rounded,
+                    color: Colors.white,
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.widgets_outlined,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                pageIndex = 3;
+              });
+            },
+            icon: pageIndex == 3
+                ? const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 35,
+                  )
+                : const Icon(
+                    Icons.person_outline,
+                    color: Colors.white,
+                    size: 35,
+                  ),
+          ),
+        ],
       ),
     );
   }
-  */
-//define a toast method
-  void toast(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text((text)),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
-    ));
-  }
-
-  void requestStoragePermission() async {
-    //only if the platform is not web, coz web have no permissions
-    if (!kIsWeb) {
-      bool permissionStatus = await _audioQuery.permissionsStatus();
-      if (!permissionStatus) {
-        await _audioQuery.permissionsRequest();
-      }
-
-      //ensure build method is called
-      setState(() {});
-    }
-  }
 }
 
+//custom Navigation Bar
 class _CustomNavBar extends StatelessWidget {
   const _CustomNavBar({
     Key? key,
@@ -237,6 +152,7 @@ class _CustomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int selectedIndex = 0;
     return BottomNavigationBar(
       backgroundColor: const Color.fromARGB(255, 55, 71, 133),
       unselectedItemColor: const Color.fromARGB(255, 247, 108, 108),
@@ -256,48 +172,94 @@ class _CustomNavBar extends StatelessWidget {
           label: "Unknown Files",
         ),
       ],
-      //currentIndex: selectedIndex,
-      //onTap: onItemTapped,
+      currentIndex: selectedIndex,
+      onTap: onItemTapped,
+    );
+  }
+
+  void onItemTapped(int value) {}
+}
+
+class Page1 extends StatelessWidget {
+  const Page1({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xffC4DFCB),
+      child: Center(
+        child: Text(
+          "Page Number 1",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 45,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 }
 
-class _CustomeAppBar extends StatelessWidget with PreferredSizeWidget {
-  const _CustomeAppBar({Key? key}) : super(key: key);
+class Page2 extends StatelessWidget {
+  const Page2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: const Color.fromARGB(
-          0, 247, 108, 108), //const Color.fromARGB(255, 36, 48, 94),
-      elevation: 0,
-      leading: const Text(
-        'Music Library',
-        style: TextStyle(
-            color: Color.fromARGB(255, 247, 108, 108),
-            fontSize: 18,
-            fontFamily: 'Schyler'),
+    return Container(
+      color: const Color(0xffC4DFCB),
+      child: Center(
+        child: Text(
+          "Page Number 2",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 45,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
       ),
-      actions: <Widget>[
-        IconButton(
-          color: const Color.fromARGB(255, 248, 233, 161),
-          icon: const Icon(Icons.my_library_music_rounded),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SongScreen(
-                        name: '',
-                        artist: '',
-                        path: '',
-                      )),
-            );
-          },
-        )
-      ],
     );
   }
+}
+
+class Page3 extends StatelessWidget {
+  const Page3({Key? key}) : super(key: key);
 
   @override
-  Size get preferredSize => const Size.fromHeight(56);
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xffC4DFCB),
+      child: Center(
+        child: Text(
+          "Page Number 3",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 45,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Page4 extends StatelessWidget {
+  const Page4({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xffC4DFCB),
+      child: Center(
+        child: Text(
+          "Page Number 4",
+          style: TextStyle(
+            color: Colors.green[900],
+            fontSize: 45,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
 }

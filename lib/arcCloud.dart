@@ -10,10 +10,11 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  myAppState createState() => myAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+// ignore: camel_case_types
+class myAppState extends State<MyApp> {
   ACRCloudResponseMusicItem? music;
 
   @override
