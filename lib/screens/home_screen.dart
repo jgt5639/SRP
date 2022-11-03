@@ -145,8 +145,8 @@ class MyHomeScreenState extends State<MyHomeScreen> {
 }
 
 //custom Navigation Bar
-class _CustomNavBar extends StatelessWidget {
-  const _CustomNavBar({
+class CustomNavBar extends StatelessWidget {
+  const CustomNavBar({
     Key? key,
   }) : super(key: key);
 

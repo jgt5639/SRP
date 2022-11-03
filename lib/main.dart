@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:senior_project/screens/home_page.dart';
 import 'dart:math';
+
+import 'package:senior_project/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +25,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AnimatedSplashScreen(
+      home: //const MyHomePageTest(),
+          AnimatedSplashScreen(
         backgroundColor: const Color.fromARGB(255, 36, 48, 94),
         duration: 3000,
         splashTransition: SplashTransition.sizeTransition,
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
         )),
         nextScreen: const MyHomePage(title: "Songs"),
       ),
+      /**/
     );
   }
 }
