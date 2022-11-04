@@ -85,7 +85,7 @@ class LibraryScreenState extends State<LibraryScreen> {
         colorPair12 = Colors.blueAccent; //Appears
     Color colorPair21 = Colors.blueAccent,
         colorPair22 = Colors.greenAccent; //Appears
-    Color colorPair31 = Colors.orange, colorPair32 = Colors.deepOrange; //Apears
+    Color colorPair31 = Colors.blue, colorPair32 = Colors.deepOrange; //Apears
     Color colorPair41 = Colors.deepOrange, colorPair42 = Colors.deepPurple;
     //Random number generation.
     Random random = Random();
