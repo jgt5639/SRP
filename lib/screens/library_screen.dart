@@ -118,7 +118,7 @@ class LibraryScreenState extends State<LibraryScreen> {
     /**/
     if (isPlayerViewVisible) {
       return Scaffold(
-        backgroundColor: bgColor,
+        //backgroundColor: bgColor,
         body: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -150,29 +150,6 @@ class LibraryScreenState extends State<LibraryScreen> {
                         ),
                       ),
                     ),
-                    Flexible(
-                      flex: 10,
-                      child: Column(
-                        children: [
-                          Text(
-                            currentSongTitle,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 248, 233, 161),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                            ),
-                          ),
-                          Text(
-                            currentSongArtist,
-                            style: const TextStyle(
-                              color: Color.fromARGB(255, 168, 208, 230),
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
 
@@ -197,13 +174,65 @@ class LibraryScreenState extends State<LibraryScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 15, left: 33, right: 2),
+                                  child: Column(children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.left,
+                                      currentSongTitle,
+                                      style: const TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        color:
+                                            Color.fromARGB(255, 248, 233, 161),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 22,
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          //Artist for song screen
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Container(
+                                  margin: const EdgeInsets.only(
+                                      top: 5, left: 33, right: 2),
+                                  child: Column(children: [
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      currentSongArtist,
+                                      style: const TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        color:
+                                            Color.fromARGB(255, 168, 208, 230),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              ),
+                            ],
+                          ),
+
                           //artwork container
                           Container(
                             width: 300,
                             height: 300,
                             decoration: getDecoration(BoxShape.rectangle,
                                 const Offset(2, 2), 15.0, 5.0),
-                            margin: const EdgeInsets.only(top: 60, bottom: 50),
+                            margin: const EdgeInsets.only(top: 10, bottom: 50),
                             child: QueryArtworkWidget(
                               id: songs[currentSongIndex].id,
                               type: ArtworkType.AUDIO,
@@ -512,12 +541,15 @@ class LibraryScreenState extends State<LibraryScreen> {
                           title: Text(
                             item.data![index].title,
                             style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
+                                fontFamily: 'Montserrat',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
                             item.data![index].displayNameWOExt,
                             style: const TextStyle(
-                              fontWeight: FontWeight.w500,
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
                               color: Color.fromARGB(255, 168, 208, 230),
                             ),
                           ),

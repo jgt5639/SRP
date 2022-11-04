@@ -66,7 +66,7 @@ class MyHomePageState extends State<MyHomePage> {
 // Custom App Bar
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
-  final Size preferredSize = const Size.fromHeight(75.0);
+  final Size preferredSize = const Size.fromHeight(50.0);
   final String title;
 
   const CustomAppBar({
@@ -89,6 +89,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         title: Text(
           title,
           style: const TextStyle(
+              fontFamily: 'Montserrat',
               color: Color.fromARGB(255, 247, 108, 108),
               fontSize: 40,
               fontWeight: FontWeight.w600),
