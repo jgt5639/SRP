@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_acrcloud/flutter_acrcloud.dart';
 //import 'package:flutter_acrcloud_example/env.dart';
 
+/*
 void main() {
-  runApp(const MyApp());
+  runApp(ArcCloud());
 }
+*/
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class ArcCloud extends StatefulWidget {
+  const ArcCloud({super.key});
 
   @override
-  myAppState createState() => myAppState();
+  ArcCloudState createState() => ArcCloudState();
 }
 
 // ignore: camel_case_types
-class myAppState extends State<MyApp> {
+class ArcCloudState extends State<ArcCloud> {
   ACRCloudResponseMusicItem? music;
 
   @override
@@ -66,6 +68,7 @@ class myAppState extends State<MyApp> {
                     );
 
                     final result = await session.result;
+                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
 
                     if (result == null) {

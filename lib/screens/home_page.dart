@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/screens/player.dart';
-import 'package:senior_project/screens/song_screen.dart';
+import 'package:senior_project/arcCloud.dart';
+import 'package:senior_project/screens/library_screen.dart';
 
-class MyHomePageTest extends StatefulWidget {
-  const MyHomePageTest({Key? key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
   @override
-  State<MyHomePageTest> createState() => _MyHomePageTestState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageTestState extends State<MyHomePageTest> {
+class MyHomePageState extends State<MyHomePage> {
   // List of different screens
   int pageIndex = 0;
   List<Widget> pageList = [
-    const Player(),
-    SongScreen(
-      artist: 'asdf',
-      name: 'jkl;',
-    ),
-    const Player(),
+    const LibraryScreen(),
+    const ArcCloud(),
+    const MetaData(),
   ];
 
+  // List of different screen titles
+  List<String> pageTitles = [
+    "Library",
+    "ArcCloud",
+    "Metadata",
+  ];
+
+// On tapping a Bottom Nav Item, change screen
   void onItemTapped(int index) {
     setState(() {
       pageIndex = index;
@@ -29,7 +34,7 @@ class _MyHomePageTestState extends State<MyHomePageTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "title var"),
+      appBar: CustomAppBar(title: pageTitles[pageIndex]),
       body: pageList[pageIndex],
       // Bottom Nav Bar
       bottomNavigationBar: BottomNavigationBar(
