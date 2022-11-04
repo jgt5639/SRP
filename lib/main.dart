@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: //const MyHomePageTest(),
-          AnimatedSplashScreen(
+      home: const MyHomePageTest(),
+      /*AnimatedSplashScreen(
         backgroundColor: const Color.fromARGB(255, 36, 48, 94),
         duration: 3000,
         splashTransition: SplashTransition.sizeTransition,
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         )),
         nextScreen: const MyHomePage(title: "Songs"),
       ),
-      /**/
+      **/
     );
   }
 }
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<SongModel> songs = [];
   String currentSongTitle = '';
   String currentSongArtist = '';
-  int currentIndex = 0;
+  int currentSongIndex = 0;
 
   bool isPlayerViewVisible = false;
 
@@ -245,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Offset(2, 2), 15.0, 5.0),
                             margin: const EdgeInsets.only(top: 60, bottom: 50),
                             child: QueryArtworkWidget(
-                              id: songs[currentIndex].id,
+                              id: songs[currentSongIndex].id,
                               type: ArtworkType.AUDIO,
                               artworkBorder: BorderRadius.circular(1.0),
                             ),
@@ -653,7 +653,7 @@ class _MyHomePageState extends State<MyHomePage> {
       if (songs.isNotEmpty) {
         currentSongTitle = songs[index].title;
         currentSongArtist = songs[index].artist!;
-        currentIndex = index;
+        currentSongIndex = index;
       }
     });
   }
