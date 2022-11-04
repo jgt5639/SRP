@@ -118,7 +118,7 @@ class LibraryScreenState extends State<LibraryScreen> {
     /**/
     if (isPlayerViewVisible) {
       return Scaffold(
-        //backgroundColor: bgColor,
+        backgroundColor: bgColor,
         body: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -327,6 +327,37 @@ class LibraryScreenState extends State<LibraryScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
                               children: [
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      _player.loopMode == LoopMode.one
+                                          ? _player.setLoopMode(LoopMode.all)
+                                          : _player.setLoopMode(LoopMode.one);
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: StreamBuilder<LoopMode>(
+                                        stream: _player.loopModeStream,
+                                        builder: (context, snapshot) {
+                                          final loopMode = snapshot.data;
+                                          if (LoopMode.one == loopMode) {
+                                            return const Icon(
+                                              size: 25,
+                                              Icons.repeat_one,
+                                              color: Color.fromARGB(
+                                                  255, 248, 233, 161),
+                                            );
+                                          }
+                                          return const Icon(
+                                            Icons.repeat,
+                                            color: Color.fromARGB(
+                                                255, 248, 233, 161),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 //skip to previous
                                 Flexible(
                                   child: InkWell(
@@ -361,8 +392,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.all(10.0),
-                                      margin: const EdgeInsets.only(
-                                          right: 20.0, left: 20.0),
+                                      // margin: const EdgeInsets.only(
+                                      //     right: 20.0, left: 20.0),
                                       child: StreamBuilder<bool>(
                                         stream: _player.playingStream,
                                         builder: (context, snapshot) {
@@ -407,6 +438,23 @@ class LibraryScreenState extends State<LibraryScreen> {
                                     ),
                                   ),
                                 ),
+                                Flexible(
+                                  child: InkWell(
+                                    onTap: () {
+                                      _player.setShuffleModeEnabled(true);
+                                      toast(context, "Shuffling enabled");
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: const Icon(
+                                        size: 25,
+                                        Icons.shuffle,
+                                        color:
+                                            Color.fromARGB(255, 248, 233, 161),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -415,68 +463,6 @@ class LibraryScreenState extends State<LibraryScreen> {
                 ),
 
                 //go to playlist, shuffle , repeat all and repeat one control buttons
-                // Container(
-                //   margin: const EdgeInsets.only(top: 20, bottom: 20),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     mainAxisSize: MainAxisSize.max,
-                //     //children: [
-                //     //   //go to playlist btn
-                //     //   //shuffle playlist
-                //     //   Flexible(
-                //     //     child: InkWell(
-                //     //       onTap: () {
-                //     //         _player.setShuffleModeEnabled(true);
-                //     //         toast(context, "Shuffling enabled");
-                //     //       },
-                //     //       child: Container(
-                //     //         padding: const EdgeInsets.all(10.0),
-                //     //         margin:
-                //     //             const EdgeInsets.only(right: 30.0, left: 30.0),
-                //     //         decoration: getDecoration(
-                //     //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
-                //     //         child: const Icon(
-                //     //           Icons.shuffle,
-                //     //           color: Colors.white70,
-                //     //         ),
-                //     //       ),
-                //     //     ),
-                //     //   ),
-
-                //     //   //repeat mode
-                //     //   Flexible(
-                //     //     child: InkWell(
-                //     //       onTap: () {
-                //     //         _player.loopMode == LoopMode.one
-                //     //             ? _player.setLoopMode(LoopMode.all)
-                //     //             : _player.setLoopMode(LoopMode.one);
-                //     //       },
-                //     //       child: Container(
-                //     //         padding: const EdgeInsets.all(10.0),
-                //     //         decoration: getDecoration(
-                //     //             BoxShape.circle, const Offset(2, 2), 2.0, 0.0),
-                //     //         child: StreamBuilder<LoopMode>(
-                //     //           stream: _player.loopModeStream,
-                //     //           builder: (context, snapshot) {
-                //     //             final loopMode = snapshot.data;
-                //     //             if (LoopMode.one == loopMode) {
-                //     //               return const Icon(
-                //     //                 Icons.repeat_one,
-                //     //                 color: Colors.white70,
-                //     //               );
-                //     //             }
-                //     //             return const Icon(
-                //     //               Icons.repeat,
-                //     //               color: Colors.white70,
-                //     //             );
-                //     //           },
-                //     //         ),
-                //     //       ),
-                //     //     ),
-                //     //   ),
-                //     //],
-                //   ),
-                // ),
               ],
             ),
           ),
