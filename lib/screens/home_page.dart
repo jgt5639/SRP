@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:senior_project/arcCloud.dart';
+import 'package:senior_project/screens/download_page.dart';
 import 'package:senior_project/screens/library_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,6 +16,7 @@ class MyHomePageState extends State<MyHomePage> {
     const LibraryScreen(),
     const ArcCloud(),
     const MetaData(),
+    const DownloadPage(),
   ];
 
   // List of different screen titles
@@ -22,6 +24,7 @@ class MyHomePageState extends State<MyHomePage> {
     "Library",
     "ArcCloud",
     "Metadata",
+    "Download",
   ];
 
 // On tapping a Bottom Nav Item, change screen
@@ -55,6 +58,10 @@ class MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.upload_file_rounded),
             label: "Unknown Files",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.download_done_outlined),
+            label: "Download",
+          ),
         ],
         currentIndex: pageIndex,
         onTap: onItemTapped,
@@ -66,7 +73,7 @@ class MyHomePageState extends State<MyHomePage> {
 // Custom App Bar
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
-  final Size preferredSize = const Size.fromHeight(50.0);
+  final Size preferredSize = const Size.fromHeight(75.0);
   final String title;
 
   const CustomAppBar({
