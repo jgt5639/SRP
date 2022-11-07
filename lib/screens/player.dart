@@ -8,7 +8,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
 
 class Player extends StatefulWidget {
-  const Player({Key? key}) : super(key: key);
+  const Player(List<SongModel>? data, {Key? key}) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -118,7 +118,7 @@ class _PlayerState extends State<Player> {
   @override
   Widget build(BuildContext context) {
     // ignore: dead_code
-    if (false) {
+    if (true) {
       return Scaffold(
         backgroundColor: bgColor,
         body: SingleChildScrollView(
