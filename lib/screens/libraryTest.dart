@@ -115,13 +115,13 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
 
   @override
   Widget build(BuildContext context) {
-    /**/
+    /**
     if (isPlayerViewVisible) {
       return const Scaffold(
         body: Text("isPlayerViewVisible"),
       );
     }
-    /**/
+    **/
     //
     return Scaffold(
       body: Container(
@@ -202,7 +202,7 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Player(item.data)));
+                                    builder: (context) => Player(songs)));
 
                             //_changePlayerViewVisibility(item.data!);
 
