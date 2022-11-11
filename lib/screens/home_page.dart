@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/arcCloud.dart';
+import 'package:senior_project/acr_cloud.dart';
 import 'package:senior_project/screens/download_page.dart';
 import 'package:senior_project/screens/libraryTest.dart';
 import 'package:senior_project/screens/library_screen.dart';
@@ -15,7 +15,7 @@ class MyHomePageState extends State<MyHomePage> {
   int pageIndex = 0;
   List<Widget> pageList = [
     const LibraryScreen(),
-    const ArcCloud(),
+    const AcrCloud(),
     const MetaData(),
     const DownloadPage(),
   ];
@@ -23,7 +23,7 @@ class MyHomePageState extends State<MyHomePage> {
   // List of different screen titles
   List<String> pageTitles = [
     "Library",
-    "ArcCloud",
+    "AcrCloud",
     "Metadata",
     "Download",
   ];

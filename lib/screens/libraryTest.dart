@@ -202,7 +202,11 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Player(songs)));
+                                    builder: (context) => Player(
+                                          songsPassed: item.data!,
+                                          songIndex: index,
+                                          songTitle: item.data![index].title,
+                                        )));
 
                             //_changePlayerViewVisibility(item.data!);
 
