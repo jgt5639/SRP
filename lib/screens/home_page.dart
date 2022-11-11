@@ -5,7 +5,10 @@ import 'package:senior_project/screens/libraryTest.dart';
 import 'package:senior_project/screens/library_screen.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage(
+      {Key? key, required String title, required TargetPlatform platform})
+      : super(key: key);
+
   @override
   State<MyHomePage> createState() => MyHomePageState();
 }
@@ -17,7 +20,10 @@ class MyHomePageState extends State<MyHomePage> {
     const LibraryScreen(),
     const AcrCloud(),
     const MetaData(),
-    const DownloadPage(),
+    const DownloadPage(
+      platform: null,
+      title: 'WhatisThis',
+    ),
   ];
 
   // List of different screen titles
