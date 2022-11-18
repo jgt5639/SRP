@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -182,8 +183,13 @@ class LibraryScreenState extends State<LibraryScreen> {
                                   margin: const EdgeInsets.only(
                                       top: 15, left: 33, right: 2),
                                   child: Column(children: [
-                                    Text(
-                                      overflow: TextOverflow.ellipsis,
+                                    TextScroll(
+                                      delayBefore: Duration(milliseconds: 2000),
+                                      pauseBetween:
+                                          Duration(milliseconds: 3000),
+                                      intervalSpaces: 10,
+                                      velocity: Velocity(
+                                          pixelsPerSecond: Offset(50, 0)),
                                       textAlign: TextAlign.left,
                                       currentSongTitle,
                                       style: const TextStyle(
@@ -525,6 +531,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                           selectedTileColor: fiveColor,
                           textColor: fourColor,
                           title: Text(
+                            overflow: TextOverflow.ellipsis,
                             item.data![index].title,
                             style: const TextStyle(
                                 fontFamily: 'Montserrat',
@@ -532,6 +539,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                                 fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
+                            overflow: TextOverflow.ellipsis,
                             item.data![index].displayNameWOExt,
                             style: const TextStyle(
                               fontFamily: 'Montserrat',

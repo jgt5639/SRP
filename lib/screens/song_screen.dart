@@ -6,6 +6,7 @@ import 'package:rxdart/rxdart.dart' as rxdart;
 
 import 'widgets/player_buttons.dart';
 import 'widgets/seekbar.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 // ignore: must_be_immutable
 class SongScreen extends StatefulWidget {
