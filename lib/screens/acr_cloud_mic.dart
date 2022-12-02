@@ -29,6 +29,9 @@ class AcrCloudMicState extends State<AcrCloudMic> {
       body: Center(
         child: Column(
           children: [
+            Container(
+              padding: const EdgeInsets.all(25.0),
+            ),
             Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () async {

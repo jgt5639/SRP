@@ -41,14 +41,6 @@ class AcrCloudLibraryState extends State<AcrCloudLibrary> {
 
   @override
   Widget build(BuildContext context) {
-    /**
-    if (isPlayerViewVisible) {
-      return const Scaffold(
-        body: Text("isPlayerViewVisible"),
-      );
-    }
-    **/
-    //
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

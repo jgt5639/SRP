@@ -32,6 +32,9 @@ class AcrCloudLineState extends State<AcrCloudLine> {
       body: Center(
         child: Column(
           children: [
+            Container(
+              padding: const EdgeInsets.all(25.0),
+            ),
             Text('Title: ${widget.songPassed.title}\n'),
             Text('Artist: ${widget.songPassed.artist}\n'),
             Text('Album: ${widget.songPassed.album}\n'),
@@ -48,7 +51,7 @@ class AcrCloudLineState extends State<AcrCloudLine> {
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
-                      title: const Text('Pushing Metadata ...'),
+                      title: const Text('Finding Metadata ...'),
                       content: StreamBuilder(
                         stream: session.volumeStream,
                         initialData: 0,
