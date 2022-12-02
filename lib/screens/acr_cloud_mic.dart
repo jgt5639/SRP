@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_acrcloud/flutter_acrcloud.dart';
 
-class AcrCloud extends StatefulWidget {
-  const AcrCloud({super.key});
+class AcrCloudMic extends StatefulWidget {
+  const AcrCloudMic({super.key});
 
   @override
-  AcrCloudState createState() => AcrCloudState();
+  AcrCloudMicState createState() => AcrCloudMicState();
 }
 
 // ignore: camel_case_types
-class AcrCloudState extends State<AcrCloud> {
+class AcrCloudMicState extends State<AcrCloudMic> {
   ACRCloudResponseMusicItem? music;
 
   static const apiKey = '6dd61fcd689df7c4f229c702323233d3';
@@ -42,7 +42,7 @@ class AcrCloudState extends State<AcrCloud> {
                     context: context,
                     barrierDismissible: false,
                     builder: (context) => AlertDialog(
-                      title: const Text('Listening...'),
+                      title: const Text('Listening ...'),
                       content: StreamBuilder(
                         stream: session.volumeStream,
                         initialData: 0,
@@ -82,9 +82,11 @@ class AcrCloudState extends State<AcrCloud> {
               ),
             ),
             if (music != null) ...[
-              Text('Track: ${music!.title}\n'),
-              Text('Album: ${music!.album.name}\n'),
+              Text('Title: ${music!.title}\n'),
               Text('Artist: ${music!.artists.first.name}\n'),
+              Text('Album: ${music!.album.name}\n'),
+              Text('Label: ${music!.label}\n'),
+              Text('Realease Date: ${music!.releaseDate}\n'),
             ],
           ],
         ),

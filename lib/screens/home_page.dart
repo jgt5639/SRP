@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:senior_project/acr_cloud.dart';
+import 'package:senior_project/screens/acr_cloud_library.dart';
+import 'package:senior_project/screens/acr_cloud_mic.dart';
 import 'package:senior_project/screens/download_page.dart';
-import 'package:senior_project/screens/libraryTest.dart';
+import 'package:senior_project/screens/library_test.dart';
 import 'package:senior_project/screens/library_screen.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -18,11 +19,11 @@ class MyHomePageState extends State<MyHomePage> {
   int pageIndex = 0;
   List<Widget> pageList = [
     const LibraryScreen(),
-    const AcrCloud(),
-    const MetaData(),
+    const AcrCloudMic(),
+    const AcrCloudLibrary(),
     const DownloadPage(
       platform: null,
-      title: 'WhatisThis',
+      title: '',
     ),
   ];
 
