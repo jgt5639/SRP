@@ -40,7 +40,7 @@ class _DownloadListItemState extends State<DownloadListItem> {
             }
           : null,
       child: Container(
-        padding: const EdgeInsets.only(top: 50, left: 16, right: 16),
+        padding: const EdgeInsets.only(top: 150, left: 16, right: 16),
         child: InkWell(
           child: Stack(
             children: [
@@ -50,25 +50,22 @@ class _DownloadListItemState extends State<DownloadListItem> {
                 child: Column(
                   children: [
                     TextField(
-                      style: const TextStyle(
-                        fontFamily: 'Montserrat',
-                        color: Color.fromARGB(255, 248, 233, 161),
-                        fontWeight: FontWeight.w700,
-                        fontSize: 22,
-                      ),
                       controller: myController,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: white,
+                        fillColor: fiveColor,
                         border: OutlineInputBorder(),
                         labelText: 'MP3 Link Here',
+                        labelStyle: const TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0),
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(5),
-                    ),
                     Padding(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.only(top: 50),
                       child: IconButton(
                         iconSize: 35,
                         color: const Color.fromARGB(255, 248, 233, 161),

@@ -286,7 +286,7 @@ class _DownloadPageState extends State<DownloadPage> {
       ),
     );
 
-    _items.add(ItemHolder(name: 'Song'));
+    _items.add(ItemHolder(name: ''));
     for (var i = count; i < _tasks!.length; i++) {
       _items.add(ItemHolder(name: _tasks![i].name, task: _tasks![i]));
       count++;
