@@ -286,7 +286,7 @@ class _DownloadPageState extends State<DownloadPage> {
     _items = [];
 
     _tasks!.addAll(
-      DownloadItems.Songs.map(
+      DownloadItems.songs.map(
         (document) => TaskInfo(name: document.name, link: s),
       ),
     );

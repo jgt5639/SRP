@@ -1,5 +1,5 @@
 class DownloadItems {
-  static const Songs = [
+  static const songs = [
     DownloadItem(
       name: 'Song1',
       url: 'www.google.com',
