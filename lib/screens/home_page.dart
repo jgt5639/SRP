@@ -94,33 +94,22 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        titleSpacing: 40,
-        elevation: 30,
-        toolbarHeight: 100,
-        backgroundColor: const Color.fromARGB(255, 36, 48, 94),
-        shape: const Border(
-            bottom: BorderSide(
-                width: 4, color: Color.fromARGB(255, 168, 208, 230))),
-        // App Bar title text
-        title: Text(
-          title,
-          style: const TextStyle(
-              fontFamily: 'Montserrat',
-              color: Color.fromARGB(255, 247, 108, 108),
-              fontSize: 40,
-              fontWeight: FontWeight.w600),
-        ),
-        actions: [
-          // App Bar arrow button
-          IconButton(
-            icon: const Icon(
-              Icons.play_arrow_outlined,
-              color: Color.fromARGB(255, 248, 233, 161),
-            ),
-            iconSize: 45,
-            // App Bar arrow button on press
-            onPressed: () {},
-          )
-        ]);
+      titleSpacing: 40,
+      elevation: 30,
+      toolbarHeight: 100,
+      backgroundColor: const Color.fromARGB(255, 36, 48, 94),
+      shape: const Border(
+          bottom:
+              BorderSide(width: 4, color: Color.fromARGB(255, 168, 208, 230))),
+      // App Bar title text
+      title: Text(
+        title,
+        style: const TextStyle(
+            fontFamily: 'Montserrat',
+            color: Color.fromARGB(255, 247, 108, 108),
+            fontSize: 40,
+            fontWeight: FontWeight.w600),
+      ),
+    );
   }
 }

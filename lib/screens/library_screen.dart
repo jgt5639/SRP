@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -185,8 +186,10 @@ class LibraryScreenState extends State<LibraryScreen> {
                                   margin: const EdgeInsets.only(
                                       top: 15, left: 33, right: 2),
                                   child: Column(children: [
-                                    Text(
-                                      overflow: TextOverflow.ellipsis,
+                                    TextScroll(
+                                      delayBefore: Duration(milliseconds: 3000),
+                                      pauseBetween:
+                                          Duration(milliseconds: 5000),
                                       textAlign: TextAlign.left,
                                       currentSongTitle,
                                       style: const TextStyle(
@@ -529,6 +532,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                           selectedTileColor: fiveColor,
                           textColor: fourColor,
                           title: Text(
+                            overflow: TextOverflow.ellipsis,
                             item.data![index].title,
                             style: const TextStyle(
                                 fontFamily: 'Montserrat',
@@ -536,6 +540,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                                 fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
+                            overflow: TextOverflow.ellipsis,
                             item.data![index].displayNameWOExt,
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
@@ -573,9 +578,47 @@ class LibraryScreenState extends State<LibraryScreen> {
               height: 70,
               color: Color.fromARGB(255, 168, 208, 230),
               child: ListTile(
+                trailing: Flexible(
+                  child: InkWell(
+                    onTap: () {
+                      if (_player.playing) {
+                        _player.pause();
+                      } else {
+                        if (_player.currentIndex != null) {
+                          _player.play();
+                        }
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      // margin: const EdgeInsets.only(
+                      //     right: 20.0, left: 20.0),
+                      child: StreamBuilder<bool>(
+                        stream: _player.playingStream,
+                        builder: (context, snapshot) {
+                          bool? playingState = snapshot.data;
+                          if (playingState != null && playingState) {
+                            return const Icon(
+                              Icons.pause,
+                              size: 40,
+                              color: Color.fromARGB(255, 248, 233, 161),
+                            );
+                          }
+                          return const Icon(
+                            Icons.play_arrow,
+                            size: 40,
+                            color: Color.fromARGB(255, 248, 233, 161),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
                 selectedTileColor: fiveColor,
-                textColor: fourColor,
-                title: Text(
+                textColor: threeColor,
+                title: TextScroll(
+                  delayBefore: Duration(milliseconds: 3000),
+                  pauseBetween: Duration(milliseconds: 5000),
                   currentSongTitle,
                   style: const TextStyle(
                       fontFamily: 'Montserrat',
@@ -583,11 +626,12 @@ class LibraryScreenState extends State<LibraryScreen> {
                       fontWeight: FontWeight.w600),
                 ),
                 subtitle: Text(
+                  overflow: TextOverflow.ellipsis,
                   currentSongArtist,
                   style: const TextStyle(
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
-                    // color: Color.fromARGB(255, 168, 208, 230),
+                    color: const Color.fromARGB(255, 55, 71, 133),
                   ),
                 ),
                 leading: QueryArtworkWidget(

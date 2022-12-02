@@ -23,77 +23,88 @@ class AcrCloudMicState extends State<AcrCloudMic> {
     ACRCloud.setUp(const ACRCloudConfig(apiKey, apiSecret, host));
   }
 
+  Color bgColor = const Color.fromARGB(255, 36, 48, 94);
+  Color twoColor = const Color.fromARGB(255, 55, 71, 133);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 55, 71, 133),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(25.0),
-            ),
-            Builder(
-              builder: (context) => ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    music = null;
-                  });
-
-                  final session = ACRCloud.startSession();
-
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => AlertDialog(
-                      title: const Text('Listening ...'),
-                      content: StreamBuilder(
-                        stream: session.volumeStream,
-                        initialData: 0,
-                        builder: (_, snapshot) =>
-                            Text(snapshot.data.toString()),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: session.cancel,
-                          child: const Text('Cancel'),
-                        )
-                      ],
-                    ),
-                  );
-
-                  final result = await session.result;
-
-                  // ignore: use_build_context_synchronously
-                  Navigator.pop(context);
-
-                  if (result == null) {
-                    // Cancelled.
-                    return;
-                  } else if (result.metadata == null) {
-                    // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('No result.'),
-                    ));
-                    return;
-                  }
-
-                  setState(() {
-                    music = result.metadata!.music.first;
-                  });
-                },
-                child: const Text('Listen'),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [bgColor, twoColor],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(25.0),
               ),
-            ),
-            if (music != null) ...[
-              Text('Title: ${music!.title}\n'),
-              Text('Artist: ${music!.artists.first.name}\n'),
-              Text('Album: ${music!.album.name}\n'),
-              Text('Label: ${music!.label}\n'),
-              Text('Realease Date: ${music!.releaseDate}\n'),
+              Builder(
+                builder: (context) => ElevatedButton(
+                  onPressed: () async {
+                    setState(() {
+                      music = null;
+                    });
+
+                    final session = ACRCloud.startSession();
+
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Listening ...'),
+                        content: StreamBuilder(
+                          stream: session.volumeStream,
+                          initialData: 0,
+                          builder: (_, snapshot) =>
+                              Text(snapshot.data.toString()),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: session.cancel,
+                            child: const Text('Cancel'),
+                          )
+                        ],
+                      ),
+                    );
+
+                    final result = await session.result;
+
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
+
+                    if (result == null) {
+                      // Cancelled.
+                      return;
+                    } else if (result.metadata == null) {
+                      // ignore: use_build_context_synchronously
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('No result.'),
+                      ));
+                      return;
+                    }
+
+                    setState(() {
+                      music = result.metadata!.music.first;
+                    });
+                  },
+                  child: const Text('Listen'),
+                ),
+              ),
+              if (music != null) ...[
+                Text('Title: ${music!.title}\n'),
+                Text('Artist: ${music!.artists.first.name}\n'),
+                Text('Album: ${music!.album.name}\n'),
+                Text('Label: ${music!.label}\n'),
+                Text('Realease Date: ${music!.releaseDate}\n'),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
