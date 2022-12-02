@@ -1,71 +1,34 @@
-import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:senior_project/screens/player.dart';
+import 'package:senior_project/screens/acr_cloud_line.dart';
 
-class LibraryScreenTest extends StatefulWidget {
-  const LibraryScreenTest({Key? key}) : super(key: key);
+class AcrCloudLibrary extends StatefulWidget {
+  const AcrCloudLibrary({Key? key}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => LibraryScreenTestState();
+  State<StatefulWidget> createState() => AcrCloudLibraryState();
 }
 
-class LibraryScreenTestState extends State<LibraryScreenTest> {
+class AcrCloudLibraryState extends State<AcrCloudLibrary> {
 //define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
   //today
   //player
-  final AudioPlayer _player = AudioPlayer();
 
   //more variables
   List<SongModel> songs = [];
-  String currentSongTitle = '';
-  String currentSongArtist = '';
-  int currentSongIndex = 0;
-
-  bool isPlayerViewVisible = false;
-
-  //define a method to set the player view visibility
-  void _changePlayerViewVisibility([List<SongModel>? list]) {
-    setState(() {
-      if (isPlayerViewVisible == true) {
-        isPlayerViewVisible = false;
-      } else {
-        isPlayerViewVisible = true;
-      }
-    });
-  }
-
-//duration state stream
-  Stream<DurationState> get _durationStateStream =>
-      Rx.combineLatest2<Duration, Duration?, DurationState>(
-          _player.positionStream,
-          _player.durationStream,
-          (position, duration) => DurationState(
-              position: position, total: duration ?? Duration.zero));
 
   //request permission from initStateMethod
   @override
   void initState() {
     super.initState();
     requestStoragePermission();
-
-    //update the current playing song index listener
-    _player.currentIndexStream.listen((index) {
-      if (index != null) {
-        _updateCurrentPlayingSongDetails(index);
-      }
-    });
   }
 
   //dispose the player when done
   @override
   void dispose() {
-    _player.dispose();
     super.dispose();
   }
 
@@ -75,43 +38,6 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
   Color threeColor = const Color.fromARGB(255, 247, 108, 108);
   Color fourColor = const Color.fromARGB(255, 248, 233, 161);
   Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
-  List<Color> oppList = [Colors.white, Colors.white];
-  List<Color> colorChange() {
-    //Color variables to send back.
-    Color colorone = Colors.white, colortwo = Colors.white;
-
-    //Establishing Color Pairs.
-    Color colorPair11 = Colors.deepPurple,
-        colorPair12 = Colors.blueAccent; //Appears
-    Color colorPair21 = Colors.blueAccent,
-        colorPair22 = Colors.greenAccent; //Appears
-    Color colorPair31 = Colors.blue, colorPair32 = Colors.deepOrange; //Apears
-    Color colorPair41 = Colors.deepOrange, colorPair42 = Colors.deepPurple;
-    //Random number generation.
-    Random random = Random();
-    int randomNumber = random.nextInt(5);
-
-    if (randomNumber <= 1) {
-      colorone = colorPair11;
-      colortwo = colorPair12;
-      oppList = [colorPair11, colorPair12];
-    } else if (randomNumber == 2) {
-      colorone = colorPair21;
-      colortwo = colorPair22;
-      oppList = [colorPair21, colorPair22];
-    } else if (randomNumber == 3) {
-      colorone = colorPair31;
-      colortwo = colorPair32;
-      oppList = [colorPair31, colorPair32];
-    } else {
-      colorone = colorPair41;
-      colortwo = colorPair42;
-      oppList = [colorPair41, colorPair42];
-    }
-
-    List<Color> myList = [colorone, colortwo];
-    return myList;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +63,6 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
           future: _audioQuery.querySongs(
             orderType: OrderType.ASC_OR_SMALLER,
             uriType: UriType.EXTERNAL,
-            ignoreCase: true,
           ),
           builder: (context, item) {
             //loading content indicator
@@ -158,8 +83,13 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
             //showing the songs
 
             //add songs to the song list
+
             songs.clear();
             songs = item.data!;
+
+            songs.removeWhere((element) => element.artist != "<unknown>");
+
+            //songs.removeRange(5, songs.length);
 
             return RawScrollbar(
                 //thumbVisibility: true,
@@ -167,7 +97,7 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
                 radius: const Radius.circular(10.0),
                 thumbColor: threeColor,
                 child: ListView.builder(
-                    itemCount: item.data!.length,
+                    itemCount: songs.length,
                     itemBuilder: (context, index) {
                       return Container(
                         margin: const EdgeInsets.only(
@@ -177,45 +107,36 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
                           selectedTileColor: fiveColor,
                           textColor: fourColor,
                           title: Text(
-                            item.data![index].title,
+                            "title: ${songs[index].title}",
                             style: const TextStyle(
                                 fontFamily: 'Montserrat',
-                                fontSize: 18,
                                 fontWeight: FontWeight.w600),
                           ),
-                          subtitle: Text(
-                            item.data![index].displayNameWOExt,
-                            style: const TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 168, 208, 230),
-                            ),
-                          ),
+                          subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "artist: ${songs[index].artist.toString()}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromARGB(255, 168, 208, 230),
+                                  ),
+                                ),
+                              ]),
                           leading: QueryArtworkWidget(
                             artworkBorder: BorderRadius.circular(10.0),
-                            id: item.data![index].id,
+                            id: songs[index].id,
                             type: ArtworkType.AUDIO,
                           ),
                           onTap: () async {
-                            //show the player view
-
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Player(
-                                          songsPassed: item.data!,
-                                          songIndex: index,
-                                          songTitle: item.data![index].title,
+                                    builder: (context) => AcrCloudLine(
+                                          songPassed: songs[index],
                                         )));
-
-                            //_changePlayerViewVisibility(item.data!);
-
-                            toast(context,
-                                "Playing:  ${item.data![index].title}");
-                            await _player.setAudioSource(
-                                createPlaylist(item.data!),
-                                initialIndex: index);
-                            await _player.play();
+                            //_changePlayerViewVisibility(songs);
                           },
                         ),
                       );
@@ -248,26 +169,6 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
     }
   }
 
-  //create playlist
-  ConcatenatingAudioSource createPlaylist(List<SongModel> songs) {
-    List<AudioSource> sources = [];
-    for (var song in songs) {
-      sources.add(AudioSource.uri(Uri.parse(song.uri!)));
-    }
-    return ConcatenatingAudioSource(children: sources);
-  }
-
-  //update playing song details
-  void _updateCurrentPlayingSongDetails(int index) {
-    setState(() {
-      if (songs.isNotEmpty) {
-        currentSongTitle = songs[index].title;
-        currentSongArtist = songs[index].artist!;
-        currentSongIndex = index;
-      }
-    });
-  }
-
   BoxDecoration getDecoration(
     BoxShape shape,
     Offset offset,
@@ -293,10 +194,4 @@ class LibraryScreenTestState extends State<LibraryScreenTest> {
       ],
     );
   }
-}
-
-//duration class
-class DurationState {
-  DurationState({this.position = Duration.zero, this.total = Duration.zero});
-  Duration position, total;
 }

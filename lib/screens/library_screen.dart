@@ -121,8 +121,9 @@ class LibraryScreenState extends State<LibraryScreen> {
         backgroundColor: bgColor,
         body: SingleChildScrollView(
           child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 50.0, right: 20.0, left: 20.0),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
