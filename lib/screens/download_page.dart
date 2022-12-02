@@ -12,7 +12,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class DownloadPage extends StatefulWidget with WidgetsBindingObserver {
-  const DownloadPage({super.key, required this.title, required this.platform});
+  const DownloadPage({
+    super.key,
+    required this.title,
+    required this.platform,
+  });
 
   final TargetPlatform? platform;
 
@@ -29,6 +33,7 @@ class _DownloadPageState extends State<DownloadPage> {
   late bool _permissionReady;
   late String _localPath;
   final ReceivePort _port = ReceivePort();
+  String MYLINK = '';
 
   @override
   void initState() {
@@ -41,7 +46,7 @@ class _DownloadPageState extends State<DownloadPage> {
     _loading = true;
     _permissionReady = false;
 
-    _prepare();
+    _prepare("");
   }
 
   @override
@@ -118,19 +123,30 @@ class _DownloadPageState extends State<DownloadPage> {
                         );
                       }
                     },
-                    onActionTap: (task) {
-                      if (task.status == DownloadTaskStatus.undefined) {
-                        _requestDownload(task);
-                      } else if (task.status == DownloadTaskStatus.running) {
-                        _pauseDownload(task);
-                      } else if (task.status == DownloadTaskStatus.paused) {
-                        _resumeDownload(task);
-                      } else if (task.status == DownloadTaskStatus.complete ||
-                          task.status == DownloadTaskStatus.canceled) {
-                        _delete(task);
-                      } else if (task.status == DownloadTaskStatus.failed) {
-                        _retryDownload(task);
-                      }
+                    onActionTap: (task, HELLO) {
+                      setState(() {
+                        sleep(Duration(seconds: 3));
+                        print("NEXT 2 LINES @@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        print(HELLO);
+                        task.link = HELLO;
+                        print(task.link);
+                        sleep(Duration(seconds: 3));
+                        _prepare(HELLO);
+                        sleep(Duration(seconds: 3));
+                        _prepare(HELLO);
+                        if (task.status == DownloadTaskStatus.undefined) {
+                          _requestDownload(task);
+                        } else if (task.status == DownloadTaskStatus.running) {
+                          _pauseDownload(task);
+                        } else if (task.status == DownloadTaskStatus.paused) {
+                          _resumeDownload(task);
+                        } else if (task.status == DownloadTaskStatus.complete ||
+                            task.status == DownloadTaskStatus.canceled) {
+                          _delete(task);
+                        } else if (task.status == DownloadTaskStatus.failed) {
+                          _retryDownload(task);
+                        }
+                      });
                     },
                     onCancel: _delete,
                   ),
@@ -229,7 +245,7 @@ class _DownloadPageState extends State<DownloadPage> {
       taskId: task.taskId!,
       shouldDeleteContent: true,
     );
-    await _prepare();
+    await _prepare("");
     setState(() {});
   }
 
@@ -257,7 +273,7 @@ class _DownloadPageState extends State<DownloadPage> {
     return false;
   }
 
-  Future<void> _prepare() async {
+  Future<void> _prepare(String s) async {
     final tasks = await FlutterDownloader.loadTasks();
 
     if (tasks == null) {
@@ -271,7 +287,7 @@ class _DownloadPageState extends State<DownloadPage> {
 
     _tasks!.addAll(
       DownloadItems.Songs.map(
-        (document) => TaskInfo(name: document.name, link: document.url),
+        (document) => TaskInfo(name: document.name, link: s),
       ),
     );
 
@@ -380,7 +396,7 @@ class TaskInfo {
   TaskInfo({this.name, this.link});
 
   final String? name;
-  final String? link;
+  String? link;
 
   String? taskId;
   int? progress = 0;
