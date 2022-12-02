@@ -124,28 +124,23 @@ class _DownloadPageState extends State<DownloadPage> {
                       }
                     },
                     onActionTap: (task, HELLO) {
+                      task.link = HELLO;
+
                       setState(() {
-                        sleep(Duration(seconds: 3));
-                        print("NEXT 2 LINES @@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        print(HELLO);
-                        task.link = HELLO;
-                        print(task.link);
-                        sleep(Duration(seconds: 3));
                         _prepare(HELLO);
-                        sleep(Duration(seconds: 3));
-                        _prepare(HELLO);
-                        if (task.status == DownloadTaskStatus.undefined) {
-                          _requestDownload(task);
-                        } else if (task.status == DownloadTaskStatus.running) {
-                          _pauseDownload(task);
-                        } else if (task.status == DownloadTaskStatus.paused) {
-                          _resumeDownload(task);
-                        } else if (task.status == DownloadTaskStatus.complete ||
-                            task.status == DownloadTaskStatus.canceled) {
-                          _delete(task);
-                        } else if (task.status == DownloadTaskStatus.failed) {
-                          _retryDownload(task);
-                        }
+                        _requestDownload(task);
+                        // if (task.status == DownloadTaskStatus.undefined) {
+                        //   _requestDownload(task);
+                        // } else if (task.status == DownloadTaskStatus.running) {
+                        //   _pauseDownload(task);
+                        // } else if (task.status == DownloadTaskStatus.paused) {
+                        //   _resumeDownload(task);
+                        // } else if (task.status == DownloadTaskStatus.complete ||
+                        //     task.status == DownloadTaskStatus.canceled) {
+                        //   _delete(task);
+                        // } else if (task.status == DownloadTaskStatus.failed) {
+                        //   _retryDownload(task);
+                        // }
                       });
                     },
                     onCancel: _delete,
@@ -218,19 +213,19 @@ class _DownloadPageState extends State<DownloadPage> {
     );
   }
 
-  Future<void> _pauseDownload(TaskInfo task) async {
-    await FlutterDownloader.pause(taskId: task.taskId!);
-  }
+  // Future<void> _pauseDownload(TaskInfo task) async {
+  //   await FlutterDownloader.pause(taskId: task.taskId!);
+  // }
 
-  Future<void> _resumeDownload(TaskInfo task) async {
-    final newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
-    task.taskId = newTaskId;
-  }
+  // Future<void> _resumeDownload(TaskInfo task) async {
+  //   final newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
+  //   task.taskId = newTaskId;
+  // }
 
-  Future<void> _retryDownload(TaskInfo task) async {
-    final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
-    task.taskId = newTaskId;
-  }
+  // Future<void> _retryDownload(TaskInfo task) async {
+  //   final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
+  //   task.taskId = newTaskId;
+  // }
 
   Future<bool> _openDownloadedFile(TaskInfo? task) {
     if (task != null) {
@@ -291,7 +286,7 @@ class _DownloadPageState extends State<DownloadPage> {
       ),
     );
 
-    _items.add(ItemHolder(name: 'Yo'));
+    _items.add(ItemHolder(name: 'Song'));
     for (var i = count; i < _tasks!.length; i++) {
       _items.add(ItemHolder(name: _tasks![i].name, task: _tasks![i]));
       count++;

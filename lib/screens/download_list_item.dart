@@ -20,6 +20,13 @@ class DownloadListItem extends StatefulWidget {
   State<DownloadListItem> createState() => _DownloadListItemState();
 }
 
+Color bgColor = const Color.fromARGB(255, 36, 48, 94);
+Color twoColor = const Color.fromARGB(255, 55, 71, 133);
+Color threeColor = const Color.fromARGB(255, 247, 108, 108);
+Color fourColor = const Color.fromARGB(255, 248, 233, 161);
+Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
+Color white = const Color.fromARGB(255, 255, 255, 255);
+
 class _DownloadListItemState extends State<DownloadListItem> {
   @override
   Widget build(BuildContext context) {
@@ -33,29 +40,45 @@ class _DownloadListItemState extends State<DownloadListItem> {
             }
           : null,
       child: Container(
-        padding: const EdgeInsets.only(top: 50, left: 16, right: 8),
+        padding: const EdgeInsets.only(top: 50, left: 16, right: 16),
         child: InkWell(
           child: Stack(
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 200,
+                height: 250,
                 child: Column(
                   children: [
-                    TextField(controller: myController),
+                    TextField(
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        color: Color.fromARGB(255, 248, 233, 161),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22,
+                      ),
+                      controller: myController,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: white,
+                        border: OutlineInputBorder(),
+                        labelText: 'MP3 Link Here',
+                      ),
+                    ),
                     const Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(5),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8),
+                      padding: const EdgeInsets.all(8),
                       child: IconButton(
+                        iconSize: 35,
+                        color: const Color.fromARGB(255, 248, 233, 161),
                         onPressed: () {
                           THISLINK = myController.text;
-                          print(THISLINK);
+
                           widget.onActionTap.call(widget.data!.task!, THISLINK);
                         },
                         constraints:
-                            const BoxConstraints(minHeight: 32, minWidth: 32),
+                            const BoxConstraints(minHeight: 25, minWidth: 25),
                         icon: const Icon(Icons.file_download),
                         tooltip: 'Start',
                       ),
