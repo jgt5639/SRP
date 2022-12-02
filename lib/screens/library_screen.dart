@@ -69,6 +69,8 @@ class LibraryScreenState extends State<LibraryScreen> {
     super.dispose();
   }
 
+  bool flag = false;
+
   // Color changeing stuff
   Color bgColor = const Color.fromARGB(255, 36, 48, 94);
   Color twoColor = const Color.fromARGB(255, 55, 71, 133);
@@ -547,6 +549,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                             type: ArtworkType.AUDIO,
                           ),
                           onTap: () async {
+                            flag = true;
                             //show the player view
                             _changePlayerViewVisibility();
 
@@ -563,40 +566,42 @@ class LibraryScreenState extends State<LibraryScreen> {
           },
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-          child: Container(
-        width: double.infinity,
-        height: 60,
-        color: Color.fromARGB(255, 168, 208, 230),
-        child: ListTile(
-          //   selectedTileColor: fiveColor,
-          //   textColor: fourColor,
-          //   title: Text(
-          //     currentSongTitle,
-          //     style: const TextStyle(
-          //         fontFamily: 'Montserrat',
-          //         fontSize: 18,
-          //         fontWeight: FontWeight.w600),
-          //   ),
-          //   subtitle: Text(
-          //     currentSongArtist,
-          //     style: const TextStyle(
-          //       fontFamily: 'Montserrat',
-          //       fontWeight: FontWeight.bold,
-          //       color: Color.fromARGB(255, 168, 208, 230),
-          //     ),
-          //   ),
-          //   leading: QueryArtworkWidget(
-          //     artworkBorder: BorderRadius.circular(10.0),
-          //     id: songs[currentSongIndex].id,
-          //     type: ArtworkType.AUDIO,
-          //   ),
-          onTap: () {
-            //show the player view
-            _changePlayerViewVisibility();
-          },
-        ),
-      )),
+      bottomNavigationBar: flag
+          ? BottomAppBar(
+              child: Container(
+              width: double.infinity,
+              height: 70,
+              color: Color.fromARGB(255, 168, 208, 230),
+              child: ListTile(
+                selectedTileColor: fiveColor,
+                textColor: fourColor,
+                title: Text(
+                  currentSongTitle,
+                  style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
+                ),
+                subtitle: Text(
+                  currentSongArtist,
+                  style: const TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontWeight: FontWeight.bold,
+                    // color: Color.fromARGB(255, 168, 208, 230),
+                  ),
+                ),
+                leading: QueryArtworkWidget(
+                  artworkBorder: BorderRadius.circular(10.0),
+                  id: songs[currentSongIndex].id,
+                  type: ArtworkType.AUDIO,
+                ),
+                onTap: () {
+                  //show the player view
+                  _changePlayerViewVisibility();
+                },
+              ),
+            ))
+          : null,
     );
   }
 

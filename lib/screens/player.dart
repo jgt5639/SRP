@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:senior_project/screens/home_page.dart';
 
 class Player extends StatefulWidget {
   final List<SongModel> songsPassed;
   final int songIndex;
   final String songTitle;
+
   const Player({
     Key? key,
     required this.songsPassed,
