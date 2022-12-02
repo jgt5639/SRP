@@ -46,6 +46,7 @@ dependencies:
   android_path_provider: ^0.3.0
   device_info: ^2.0.3
   permission_handler: ^10.2.0
+  text_scroll: ^0.1.1
   
 
 dev_dependencies:

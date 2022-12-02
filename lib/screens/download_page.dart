@@ -124,28 +124,23 @@ class _DownloadPageState extends State<DownloadPage> {
                       }
                     },
                     onActionTap: (task, HELLO) {
+                      task.link = HELLO;
+
                       setState(() {
-                        sleep(Duration(seconds: 3));
-                        print("NEXT 2 LINES @@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        print(HELLO);
-                        task.link = HELLO;
-                        print(task.link);
-                        sleep(Duration(seconds: 3));
                         _prepare(HELLO);
-                        sleep(Duration(seconds: 3));
-                        _prepare(HELLO);
-                        if (task.status == DownloadTaskStatus.undefined) {
-                          _requestDownload(task);
-                        } else if (task.status == DownloadTaskStatus.running) {
-                          _pauseDownload(task);
-                        } else if (task.status == DownloadTaskStatus.paused) {
-                          _resumeDownload(task);
-                        } else if (task.status == DownloadTaskStatus.complete ||
-                            task.status == DownloadTaskStatus.canceled) {
-                          _delete(task);
-                        } else if (task.status == DownloadTaskStatus.failed) {
-                          _retryDownload(task);
-                        }
+                        _requestDownload(task);
+                        // if (task.status == DownloadTaskStatus.undefined) {
+                        //   _requestDownload(task);
+                        // } else if (task.status == DownloadTaskStatus.running) {
+                        //   _pauseDownload(task);
+                        // } else if (task.status == DownloadTaskStatus.paused) {
+                        //   _resumeDownload(task);
+                        // } else if (task.status == DownloadTaskStatus.complete ||
+                        //     task.status == DownloadTaskStatus.canceled) {
+                        //   _delete(task);
+                        // } else if (task.status == DownloadTaskStatus.failed) {
+                        //   _retryDownload(task);
+                        // }
                       });
                     },
                     onCancel: _delete,
@@ -160,7 +155,7 @@ class _DownloadPageState extends State<DownloadPage> {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.blue,
+          color: const Color.fromARGB(255, 248, 233, 161),
           fontSize: 18,
         ),
       ),
@@ -218,19 +213,19 @@ class _DownloadPageState extends State<DownloadPage> {
     );
   }
 
-  Future<void> _pauseDownload(TaskInfo task) async {
-    await FlutterDownloader.pause(taskId: task.taskId!);
-  }
+  // Future<void> _pauseDownload(TaskInfo task) async {
+  //   await FlutterDownloader.pause(taskId: task.taskId!);
+  // }
 
-  Future<void> _resumeDownload(TaskInfo task) async {
-    final newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
-    task.taskId = newTaskId;
-  }
+  // Future<void> _resumeDownload(TaskInfo task) async {
+  //   final newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
+  //   task.taskId = newTaskId;
+  // }
 
-  Future<void> _retryDownload(TaskInfo task) async {
-    final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
-    task.taskId = newTaskId;
-  }
+  // Future<void> _retryDownload(TaskInfo task) async {
+  //   final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
+  //   task.taskId = newTaskId;
+  // }
 
   Future<bool> _openDownloadedFile(TaskInfo? task) {
     if (task != null) {
@@ -291,7 +286,7 @@ class _DownloadPageState extends State<DownloadPage> {
       ),
     );
 
-    _items.add(ItemHolder(name: 'Songs'));
+    _items.add(ItemHolder(name: 'Song'));
     for (var i = count; i < _tasks!.length; i++) {
       _items.add(ItemHolder(name: _tasks![i].name, task: _tasks![i]));
       count++;
@@ -344,42 +339,33 @@ class _DownloadPageState extends State<DownloadPage> {
     return externalStorageDirPath;
   }
 
+  Color bgColor = const Color.fromARGB(255, 36, 48, 94);
+  Color twoColor = const Color.fromARGB(255, 55, 71, 133);
+  Color threeColor = const Color.fromARGB(255, 247, 108, 108);
+  Color fourColor = const Color.fromARGB(255, 248, 233, 161);
+  Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          if (Platform.isIOS)
-            PopupMenuButton<Function>(
-              icon: const Icon(Icons.more_vert, color: Colors.white),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  onTap: () => exit(0),
-                  child: const ListTile(
-                    title: Text(
-                      'Simulate App Backgrounded',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
-                ),
-              ],
-            )
-        ],
-      ),
-      body: Builder(
-        builder: (context) {
-          if (_loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [bgColor, twoColor],
+          ),
+        ),
+        child: Builder(
+          builder: (context) {
+            if (_loading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          return _permissionReady
-              ? _buildDownloadList()
-              : _buildNoPermissionWarning();
-        },
+            return _permissionReady
+                ? _buildDownloadList()
+                : _buildNoPermissionWarning();
+          },
+        ),
       ),
     );
   }
