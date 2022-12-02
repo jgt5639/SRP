@@ -26,8 +26,10 @@ class AcrCloudMicState extends State<AcrCloudMic> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 55, 71, 133),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Builder(
               builder: (context) => ElevatedButton(
