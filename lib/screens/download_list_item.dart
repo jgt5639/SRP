@@ -26,20 +26,20 @@ class _DownloadListItemState extends State<DownloadListItem> {
     String THISLINK = '';
     final myController = TextEditingController();
 
-    return InkWell(
+    return GestureDetector(
       onTap: widget.data!.task!.status == DownloadTaskStatus.complete
           ? () {
               widget.onTap!(widget.data!.task);
             }
           : null,
       child: Container(
-        padding: const EdgeInsets.only(left: 16, right: 8),
+        padding: const EdgeInsets.only(top: 50, left: 16, right: 8),
         child: InkWell(
           child: Stack(
             children: [
               SizedBox(
                 width: double.infinity,
-                height: 100,
+                height: 200,
                 child: Column(
                   children: [
                     TextField(controller: myController),

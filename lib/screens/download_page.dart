@@ -160,7 +160,7 @@ class _DownloadPageState extends State<DownloadPage> {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.blue,
+          color: const Color.fromARGB(255, 248, 233, 161),
           fontSize: 18,
         ),
       ),
