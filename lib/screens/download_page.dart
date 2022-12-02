@@ -291,7 +291,7 @@ class _DownloadPageState extends State<DownloadPage> {
       ),
     );
 
-    _items.add(ItemHolder(name: 'Songs'));
+    _items.add(ItemHolder(name: 'Yo'));
     for (var i = count; i < _tasks!.length; i++) {
       _items.add(ItemHolder(name: _tasks![i].name, task: _tasks![i]));
       count++;
@@ -344,42 +344,33 @@ class _DownloadPageState extends State<DownloadPage> {
     return externalStorageDirPath;
   }
 
+  Color bgColor = const Color.fromARGB(255, 36, 48, 94);
+  Color twoColor = const Color.fromARGB(255, 55, 71, 133);
+  Color threeColor = const Color.fromARGB(255, 247, 108, 108);
+  Color fourColor = const Color.fromARGB(255, 248, 233, 161);
+  Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          if (Platform.isIOS)
-            PopupMenuButton<Function>(
-              icon: const Icon(Icons.more_vert, color: Colors.white),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  onTap: () => exit(0),
-                  child: const ListTile(
-                    title: Text(
-                      'Simulate App Backgrounded',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ),
-                ),
-              ],
-            )
-        ],
-      ),
-      body: Builder(
-        builder: (context) {
-          if (_loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [bgColor, twoColor],
+          ),
+        ),
+        child: Builder(
+          builder: (context) {
+            if (_loading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          return _permissionReady
-              ? _buildDownloadList()
-              : _buildNoPermissionWarning();
-        },
+            return _permissionReady
+                ? _buildDownloadList()
+                : _buildNoPermissionWarning();
+          },
+        ),
       ),
     );
   }
