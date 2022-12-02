@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:text_scroll/text_scroll.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({Key? key}) : super(key: key);
@@ -122,8 +121,9 @@ class LibraryScreenState extends State<LibraryScreen> {
         backgroundColor: bgColor,
         body: SingleChildScrollView(
           child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 50.0, right: 20.0, left: 20.0),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -183,13 +183,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                                   margin: const EdgeInsets.only(
                                       top: 15, left: 33, right: 2),
                                   child: Column(children: [
-                                    TextScroll(
-                                      delayBefore: Duration(milliseconds: 2000),
-                                      pauseBetween:
-                                          Duration(milliseconds: 3000),
-                                      intervalSpaces: 10,
-                                      velocity: Velocity(
-                                          pixelsPerSecond: Offset(50, 0)),
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.left,
                                       currentSongTitle,
                                       style: const TextStyle(
@@ -475,6 +470,7 @@ class LibraryScreenState extends State<LibraryScreen> {
         ),
       );
     }
+
     /**/
     //
     return Scaffold(
@@ -531,7 +527,6 @@ class LibraryScreenState extends State<LibraryScreen> {
                           selectedTileColor: fiveColor,
                           textColor: fourColor,
                           title: Text(
-                            overflow: TextOverflow.ellipsis,
                             item.data![index].title,
                             style: const TextStyle(
                                 fontFamily: 'Montserrat',
@@ -539,7 +534,6 @@ class LibraryScreenState extends State<LibraryScreen> {
                                 fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
-                            overflow: TextOverflow.ellipsis,
                             item.data![index].displayNameWOExt,
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
@@ -569,6 +563,40 @@ class LibraryScreenState extends State<LibraryScreen> {
           },
         ),
       ),
+      bottomNavigationBar: BottomAppBar(
+          child: Container(
+        width: double.infinity,
+        height: 60,
+        color: Color.fromARGB(255, 168, 208, 230),
+        child: ListTile(
+          //   selectedTileColor: fiveColor,
+          //   textColor: fourColor,
+          //   title: Text(
+          //     currentSongTitle,
+          //     style: const TextStyle(
+          //         fontFamily: 'Montserrat',
+          //         fontSize: 18,
+          //         fontWeight: FontWeight.w600),
+          //   ),
+          //   subtitle: Text(
+          //     currentSongArtist,
+          //     style: const TextStyle(
+          //       fontFamily: 'Montserrat',
+          //       fontWeight: FontWeight.bold,
+          //       color: Color.fromARGB(255, 168, 208, 230),
+          //     ),
+          //   ),
+          //   leading: QueryArtworkWidget(
+          //     artworkBorder: BorderRadius.circular(10.0),
+          //     id: songs[currentSongIndex].id,
+          //     type: ArtworkType.AUDIO,
+          //   ),
+          onTap: () {
+            //show the player view
+            _changePlayerViewVisibility();
+          },
+        ),
+      )),
     );
   }
 
