@@ -32,7 +32,7 @@ class MyHomePageState extends State<MyHomePage> {
   List<String> pageTitles = [
     "Library",
     "AcrCloud",
-    "Metadata",
+    "Unknown",
     "Download",
   ];
 
@@ -50,18 +50,18 @@ class MyHomePageState extends State<MyHomePage> {
       body: pageList[pageIndex],
       // Bottom Nav Bar
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromARGB(255, 55, 71, 133),
+        backgroundColor: Color.fromARGB(235, 55, 71, 133),
         unselectedItemColor: const Color.fromARGB(255, 247, 108, 108),
         selectedItemColor: const Color.fromARGB(255, 248, 233, 161),
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+            icon: Icon(Icons.library_music),
+            label: "Library",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.play_circle_fill_outlined),
-            label: "Play",
+            label: "Finder",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.upload_file_rounded),

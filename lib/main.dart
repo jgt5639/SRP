@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       home: AnimatedSplashScreen(
-        splash: const Icon(Icons.library_music_outlined,
+        splash: const Icon(Icons.library_music_rounded,
             size: 75, color: Color.fromARGB(255, 247, 108, 108)),
         splashTransition: SplashTransition.sizeTransition,
         backgroundColor: const Color.fromARGB(255, 55, 71, 133),

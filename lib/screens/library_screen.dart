@@ -484,7 +484,7 @@ class LibraryScreenState extends State<LibraryScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [bgColor, twoColor],
+            colors: [twoColor, bgColor],
           ),
         ),
         child: FutureBuilder<List<SongModel>>(
@@ -575,8 +575,8 @@ class LibraryScreenState extends State<LibraryScreen> {
           ? BottomAppBar(
               child: Container(
               width: double.infinity,
-              height: 70,
-              color: Color.fromARGB(255, 168, 208, 230),
+              height: 65,
+              color: const Color.fromARGB(255, 55, 71, 133),
               child: ListTile(
                 trailing: Flexible(
                   child: InkWell(
@@ -600,14 +600,14 @@ class LibraryScreenState extends State<LibraryScreen> {
                           if (playingState != null && playingState) {
                             return const Icon(
                               Icons.pause,
-                              size: 40,
-                              color: Color.fromARGB(255, 248, 233, 161),
+                              size: 35,
+                              color: Color.fromARGB(255, 247, 108, 108),
                             );
                           }
                           return const Icon(
                             Icons.play_arrow,
-                            size: 40,
-                            color: Color.fromARGB(255, 248, 233, 161),
+                            size: 35,
+                            color: Color.fromARGB(255, 247, 108, 108),
                           );
                         },
                       ),
@@ -615,7 +615,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                   ),
                 ),
                 selectedTileColor: fiveColor,
-                textColor: threeColor,
+                textColor: fourColor,
                 title: TextScroll(
                   delayBefore: Duration(milliseconds: 3000),
                   pauseBetween: Duration(milliseconds: 5000),
@@ -631,7 +631,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                   style: const TextStyle(
                     fontFamily: 'Montserrat',
                     fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 55, 71, 133),
+                    color: Color.fromARGB(255, 168, 208, 230),
                   ),
                 ),
                 leading: QueryArtworkWidget(
