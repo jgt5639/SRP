@@ -101,6 +101,7 @@ class AcrCloudLibraryState extends State<AcrCloudLibrary> {
                           title: Text(
                             "title: ${songs[index].title}",
                             style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
                                 fontFamily: 'Montserrat',
                                 fontWeight: FontWeight.w600),
                           ),

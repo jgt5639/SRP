@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:senior_project/screens/acr_cloud_library.dart';
 import 'package:senior_project/screens/acr_cloud_mic.dart';
 import 'package:senior_project/screens/download_page.dart';
-import 'package:senior_project/screens/library_test.dart';
+
 import 'package:senior_project/screens/library_screen.dart';
-import 'package:senior_project/screens/player.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage(
@@ -31,7 +30,7 @@ class MyHomePageState extends State<MyHomePage> {
   // List of different screen titles
   List<String> pageTitles = [
     "Library",
-    "AcrCloud",
+    "Find",
     "Unknown",
     "Download",
   ];
@@ -60,7 +59,7 @@ class MyHomePageState extends State<MyHomePage> {
             label: "Library",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_fill_outlined),
+            icon: Icon(Icons.fiber_new),
             label: "Finder",
           ),
           BottomNavigationBarItem(
