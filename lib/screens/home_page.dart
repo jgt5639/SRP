@@ -47,7 +47,7 @@ class MyHomePageState extends State<MyHomePage> {
   // List of different screen titles
   List<String> pageTitles = [
     "Library",
-    "Find",
+    "Heat Seek",
     "Unknown",
     "Download",
   ];

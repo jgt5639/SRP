@@ -10,7 +10,8 @@ class AcrCloudMic extends StatefulWidget {
 }
 
 // ignore: camel_case_types
-class AcrCloudMicState extends State<AcrCloudMic> {
+class AcrCloudMicState extends State<AcrCloudMic>
+    with AutomaticKeepAliveClientMixin<AcrCloudMic> {
   ACRCloudResponseMusicItem? music;
 
   static const apiKey = '6dd61fcd689df7c4f229c702323233d3';
@@ -29,6 +30,7 @@ class AcrCloudMicState extends State<AcrCloudMic> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -177,4 +179,7 @@ class AcrCloudMicState extends State<AcrCloudMic> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

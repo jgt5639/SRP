@@ -66,7 +66,7 @@ class LibraryScreenState extends State<LibraryScreen>
   }
 
   //dispose the player when done
-
+  @override
   void dispose() {
     _player.dispose();
     super.dispose();
@@ -92,23 +92,31 @@ class LibraryScreenState extends State<LibraryScreen>
     Color colorPair41 = Colors.deepOrange, colorPair42 = Colors.deepPurple;
     //Random number generation.
     Random random = Random();
-    int randomNumber = random.nextInt(5);
+    int randomNumber = random.nextInt(7);
 
     if (randomNumber <= 1) {
       colorone = bgColor;
       colortwo = twoColor;
       oppList = [colorPair11, colorPair12];
     } else if (randomNumber == 2) {
-      colorone = colorPair21;
-      colortwo = colorPair22;
+      colorone = bgColor;
+      colortwo = twoColor;
       oppList = [colorPair21, colorPair22];
     } else if (randomNumber == 3) {
-      colorone = colorPair31;
-      colortwo = colorPair32;
+      colorone = bgColor;
+      colortwo = twoColor;
       oppList = [colorPair31, colorPair32];
+    } else if (randomNumber == 4) {
+      colorone = bgColor;
+      colortwo = twoColor;
+      oppList = [bgColor, threeColor];
+    } else if (randomNumber == 5) {
+      colorone = bgColor;
+      colortwo = twoColor;
+      oppList = [colorPair22, twoColor];
     } else {
-      colorone = colorPair41;
-      colortwo = colorPair42;
+      colorone = bgColor;
+      colortwo = twoColor;
       oppList = [colorPair41, colorPair42];
     }
 
@@ -577,7 +585,7 @@ class LibraryScreenState extends State<LibraryScreen>
           ? BottomAppBar(
               child: Container(
               width: double.infinity,
-              height: 65,
+              height: 68,
               color: const Color.fromARGB(255, 55, 71, 133),
               child: ListTile(
                 trailing: Flexible(
@@ -592,7 +600,7 @@ class LibraryScreenState extends State<LibraryScreen>
                       }
                     },
                     child: Container(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.only(bottom: 10.0),
                       // margin: const EdgeInsets.only(
                       //     right: 20.0, left: 20.0),
                       child: StreamBuilder<bool>(
@@ -657,6 +665,7 @@ class LibraryScreenState extends State<LibraryScreen>
   //define a toast method
   void toast(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(seconds: 1),
       content: Text(text),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
