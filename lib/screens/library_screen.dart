@@ -14,7 +14,8 @@ class LibraryScreen extends StatefulWidget {
   State<StatefulWidget> createState() => LibraryScreenState();
 }
 
-class LibraryScreenState extends State<LibraryScreen> {
+class LibraryScreenState extends State<LibraryScreen>
+    with AutomaticKeepAliveClientMixin<LibraryScreen> {
 //define on audio plugin
   final OnAudioQuery _audioQuery = OnAudioQuery();
 
@@ -29,6 +30,7 @@ class LibraryScreenState extends State<LibraryScreen> {
   int currentSongIndex = 0;
 
   bool isPlayerViewVisible = false;
+  bool flag = false;
 
   //define a method to set the player view visibility
   void _changePlayerViewVisibility() {
@@ -64,13 +66,11 @@ class LibraryScreenState extends State<LibraryScreen> {
   }
 
   //dispose the player when done
-  @override
+
   void dispose() {
     _player.dispose();
     super.dispose();
   }
-
-  bool flag = false;
 
   // Color changeing stuff
   Color bgColor = const Color.fromARGB(255, 36, 48, 94);
@@ -95,8 +95,8 @@ class LibraryScreenState extends State<LibraryScreen> {
     int randomNumber = random.nextInt(5);
 
     if (randomNumber <= 1) {
-      colorone = colorPair11;
-      colortwo = colorPair12;
+      colorone = bgColor;
+      colortwo = twoColor;
       oppList = [colorPair11, colorPair12];
     } else if (randomNumber == 2) {
       colorone = colorPair21;
@@ -119,6 +119,7 @@ class LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     /**/
+    super.build(context);
     if (isPlayerViewVisible) {
       return Scaffold(
         backgroundColor: bgColor,
@@ -146,7 +147,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                         onTap:
                             _changePlayerViewVisibility, //hides the player view
                         child: Container(
-                          padding: const EdgeInsets.all(1.0),
+                          padding: const EdgeInsets.only(top: 25.0, bottom: 15),
                           child: const Icon(
                             Icons.arrow_back_ios_new,
                             color: Color.fromARGB(255, 248, 233, 161),
@@ -479,6 +480,7 @@ class LibraryScreenState extends State<LibraryScreen> {
     /**/
     //
     return Scaffold(
+      appBar: CustomAppBar(title: "Library"),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -649,6 +651,9 @@ class LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
+  @override
+  bool get wantKeepAlive => true;
+
   //define a toast method
   void toast(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -714,6 +719,40 @@ class LibraryScreenState extends State<LibraryScreen> {
           spreadRadius: spreadRadius,
         )
       ],
+    );
+  }
+}
+
+class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+  @override
+  final Size preferredSize = const Size.fromHeight(75.0);
+  final String title;
+
+  const CustomAppBar({
+    required this.title,
+    preferredSize,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      titleSpacing: 40,
+      elevation: 30,
+      toolbarHeight: 100,
+      backgroundColor: const Color.fromARGB(255, 36, 48, 94),
+      shape: const Border(
+          bottom:
+              BorderSide(width: 4, color: Color.fromARGB(255, 168, 208, 230))),
+      // App Bar title text
+      title: Text(
+        title,
+        style: const TextStyle(
+            fontFamily: 'Montserrat',
+            color: Color.fromARGB(255, 247, 108, 108),
+            fontSize: 40,
+            fontWeight: FontWeight.w600),
+      ),
     );
   }
 }

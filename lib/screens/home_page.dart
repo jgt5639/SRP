@@ -16,16 +16,33 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   // List of different screens
-  int pageIndex = 0;
-  List<Widget> pageList = [
-    const LibraryScreen(),
-    const AcrCloudMic(),
-    const AcrCloudLibrary(),
-    const DownloadPage(
-      platform: null,
-      title: '',
-    ),
-  ];
+  var pageIndex = 0;
+  late List<Widget> pageList;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    pageIndex = 0;
+
+    pageList = [
+      const LibraryScreen(),
+      const AcrCloudMic(),
+      const AcrCloudLibrary(),
+      const DownloadPage(
+        platform: null,
+        title: '',
+      ),
+    ];
+
+    _pageController = PageController(initialPage: pageIndex);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   // List of different screen titles
   List<String> pageTitles = [
@@ -36,17 +53,28 @@ class MyHomePageState extends State<MyHomePage> {
   ];
 
 // On tapping a Bottom Nav Item, change screen
-  void onItemTapped(int index) {
-    setState(() {
-      pageIndex = index;
-    });
+  // void onItemTapped(int index) {
+  //   setState(() {
+  //     pageIndex = index;
+  //   });
+  // }
+
+  bool scan() {
+    if (pageIndex == 0) {
+      return true;
+    }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: pageTitles[pageIndex]),
-      body: pageList[pageIndex],
+      appBar: scan() ? null : CustomAppBar(title: pageTitles[pageIndex]),
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: pageList,
+      ),
       // Bottom Nav Bar
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color.fromARGB(235, 55, 71, 133),
@@ -72,7 +100,12 @@ class MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: pageIndex,
-        onTap: onItemTapped,
+        onTap: (index) {
+          setState(() {
+            pageIndex = index;
+            _pageController.jumpToPage(index);
+          });
+        },
       ),
     );
   }
