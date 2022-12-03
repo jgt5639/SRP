@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_acrcloud/flutter_acrcloud.dart';
 import 'package:senior_project/screens/download_list_item.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AcrCloudMic extends StatefulWidget {
   const AcrCloudMic({super.key});
@@ -71,8 +72,15 @@ class AcrCloudMicState extends State<AcrCloudMic>
                         content: StreamBuilder(
                           stream: session.volumeStream,
                           initialData: 0,
-                          builder: (_, snapshot) =>
-                              Text(snapshot.data.toString()),
+                          builder: (context, snapshot) =>
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            LoadingAnimationWidget.discreteCircle(
+                              secondRingColor: bgColor,
+                              thirdRingColor: fourColor,
+                              color: threeColor,
+                              size: 50,
+                            ),
+                          ]),
                         ),
                         actions: [
                           TextButton(
