@@ -196,9 +196,10 @@ class LibraryScreenState extends State<LibraryScreen>
                                       top: 15, left: 33, right: 2),
                                   child: Column(children: [
                                     TextScroll(
-                                      delayBefore: Duration(milliseconds: 3000),
+                                      delayBefore:
+                                          const Duration(milliseconds: 3000),
                                       pauseBetween:
-                                          Duration(milliseconds: 5000),
+                                          const Duration(milliseconds: 5000),
                                       textAlign: TextAlign.left,
                                       currentSongTitle,
                                       style: const TextStyle(
@@ -488,7 +489,7 @@ class LibraryScreenState extends State<LibraryScreen>
     /**/
     //
     return Scaffold(
-      appBar: CustomAppBar(title: "Library"),
+      appBar: const CustomAppBar(title: "Library"),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -551,7 +552,7 @@ class LibraryScreenState extends State<LibraryScreen>
                           ),
                           subtitle: Text(
                             overflow: TextOverflow.ellipsis,
-                            item.data![index].displayNameWOExt,
+                            item.data![index].artist.toString(),
                             style: const TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
@@ -627,8 +628,8 @@ class LibraryScreenState extends State<LibraryScreen>
                 selectedTileColor: fiveColor,
                 textColor: fourColor,
                 title: TextScroll(
-                  delayBefore: Duration(milliseconds: 3000),
-                  pauseBetween: Duration(milliseconds: 5000),
+                  delayBefore: const Duration(milliseconds: 3000),
+                  pauseBetween: const Duration(milliseconds: 5000),
                   currentSongTitle,
                   style: const TextStyle(
                       fontFamily: 'Montserrat',
@@ -665,7 +666,7 @@ class LibraryScreenState extends State<LibraryScreen>
   //define a toast method
   void toast(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
       content: Text(text),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),

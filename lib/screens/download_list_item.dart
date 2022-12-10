@@ -30,7 +30,7 @@ Color white = const Color.fromARGB(255, 255, 255, 255);
 class _DownloadListItemState extends State<DownloadListItem> {
   @override
   Widget build(BuildContext context) {
-    String THISLINK = '';
+    String thisLink = '';
     final myController = TextEditingController();
 
     return GestureDetector(
@@ -54,7 +54,7 @@ class _DownloadListItemState extends State<DownloadListItem> {
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: fiveColor,
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         labelText: 'MP3 Link Here',
                         labelStyle: const TextStyle(
                           color: Color.fromARGB(255, 0, 0, 0),
@@ -70,9 +70,9 @@ class _DownloadListItemState extends State<DownloadListItem> {
                         iconSize: 35,
                         color: const Color.fromARGB(255, 248, 233, 161),
                         onPressed: () {
-                          THISLINK = myController.text;
+                          thisLink = myController.text;
 
-                          widget.onActionTap.call(widget.data!.task!, THISLINK);
+                          widget.onActionTap.call(widget.data!.task!, thisLink);
                         },
                         constraints:
                             const BoxConstraints(minHeight: 25, minWidth: 25),

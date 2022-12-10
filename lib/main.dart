@@ -1,6 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:senior_project/screens/home_page.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 

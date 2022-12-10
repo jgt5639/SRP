@@ -6,7 +6,7 @@ import 'package:senior_project/screens/download_page.dart';
 import 'package:senior_project/screens/library_screen.dart';
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage(
+  const MyHomePage(
       {Key? key, required String title, required TargetPlatform platform})
       : super(key: key);
 
@@ -27,11 +27,11 @@ class MyHomePageState extends State<MyHomePage> {
     pageList = [
       const LibraryScreen(),
       const AcrCloudMic(),
-      const AcrCloudLibrary(),
       const DownloadPage(
         platform: null,
         title: '',
       ),
+      const AcrCloudLibrary(),
     ];
 
     _pageController = PageController(initialPage: pageIndex);
@@ -48,8 +48,8 @@ class MyHomePageState extends State<MyHomePage> {
   List<String> pageTitles = [
     "Library",
     "Heat Seek",
-    "Unknown",
     "Download",
+    "Unknown",
   ];
 
 // On tapping a Bottom Nav Item, change screen
@@ -77,7 +77,7 @@ class MyHomePageState extends State<MyHomePage> {
       ),
       // Bottom Nav Bar
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(235, 55, 71, 133),
+        backgroundColor: const Color.fromARGB(235, 55, 71, 133),
         unselectedItemColor: const Color.fromARGB(255, 247, 108, 108),
         selectedItemColor: const Color.fromARGB(255, 248, 233, 161),
         type: BottomNavigationBarType.fixed,
@@ -91,12 +91,12 @@ class MyHomePageState extends State<MyHomePage> {
             label: "Finder",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.upload_file_rounded),
-            label: "Unknown Files",
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.download_done_outlined),
             label: "Download",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.upload_file_rounded),
+            label: "Unknown Files",
           ),
         ],
         currentIndex: pageIndex,

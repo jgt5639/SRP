@@ -48,14 +48,15 @@ class AcrCloudMicState extends State<AcrCloudMic>
               Builder(
                 builder: (context) => ElevatedButton(
                   style: ButtonStyle(
-                      fixedSize: MaterialStateProperty.all(Size(100, 50)),
+                      fixedSize: MaterialStateProperty.all(const Size(100, 50)),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15.0),
                       )),
                       backgroundColor: MaterialStateProperty.all(threeColor),
                       shadowColor: MaterialStateProperty.all(fourColor),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(15.0))),
+                      padding: MaterialStateProperty.all(
+                          const EdgeInsets.all(15.0))),
                   onPressed: () async {
                     setState(() {
                       music = null;

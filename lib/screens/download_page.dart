@@ -23,6 +23,7 @@ class DownloadPage extends StatefulWidget with WidgetsBindingObserver {
   final String title;
 
   @override
+  // ignore: library_private_types_in_public_api
   _DownloadPageState createState() => _DownloadPageState();
 }
 
@@ -33,7 +34,7 @@ class _DownloadPageState extends State<DownloadPage> {
   late bool _permissionReady;
   late String _localPath;
   final ReceivePort _port = ReceivePort();
-  String MYLINK = '';
+  String myLink = '';
 
   @override
   void initState() {
@@ -116,6 +117,7 @@ class _DownloadPageState extends State<DownloadPage> {
                     onTap: (task) async {
                       final success = await _openDownloadedFile(task);
                       if (!success) {
+                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Cannot open this file'),
@@ -123,11 +125,11 @@ class _DownloadPageState extends State<DownloadPage> {
                         );
                       }
                     },
-                    onActionTap: (task, HELLO) {
-                      task.link = HELLO;
+                    onActionTap: (task, hello) {
+                      task.link = hello;
 
                       setState(() {
-                        _prepare(HELLO);
+                        _prepare(hello);
                         _requestDownload(task);
                         // if (task.status == DownloadTaskStatus.undefined) {
                         //   _requestDownload(task);
@@ -155,7 +157,7 @@ class _DownloadPageState extends State<DownloadPage> {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
-          color: const Color.fromARGB(255, 248, 233, 161),
+          color: Color.fromARGB(255, 248, 233, 161),
           fontSize: 18,
         ),
       ),
