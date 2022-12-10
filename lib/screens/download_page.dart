@@ -6,7 +6,6 @@ import 'package:android_path_provider/android_path_provider.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:senior_project/screens/data.dart';
 import 'package:senior_project/screens/download_list_item.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -131,18 +130,6 @@ class _DownloadPageState extends State<DownloadPage> {
                       setState(() {
                         _prepare(hello);
                         _requestDownload(task);
-                        // if (task.status == DownloadTaskStatus.undefined) {
-                        //   _requestDownload(task);
-                        // } else if (task.status == DownloadTaskStatus.running) {
-                        //   _pauseDownload(task);
-                        // } else if (task.status == DownloadTaskStatus.paused) {
-                        //   _resumeDownload(task);
-                        // } else if (task.status == DownloadTaskStatus.complete ||
-                        //     task.status == DownloadTaskStatus.canceled) {
-                        //   _delete(task);
-                        // } else if (task.status == DownloadTaskStatus.failed) {
-                        //   _retryDownload(task);
-                        // }
                       });
                     },
                     onCancel: _delete,
@@ -215,20 +202,6 @@ class _DownloadPageState extends State<DownloadPage> {
       saveInPublicStorage: true,
     );
   }
-
-  // Future<void> _pauseDownload(TaskInfo task) async {
-  //   await FlutterDownloader.pause(taskId: task.taskId!);
-  // }
-
-  // Future<void> _resumeDownload(TaskInfo task) async {
-  //   final newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
-  //   task.taskId = newTaskId;
-  // }
-
-  // Future<void> _retryDownload(TaskInfo task) async {
-  //   final newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
-  //   task.taskId = newTaskId;
-  // }
 
   Future<bool> _openDownloadedFile(TaskInfo? task) {
     if (task != null) {
@@ -390,4 +363,20 @@ class TaskInfo {
   String? taskId;
   int? progress = 0;
   DownloadTaskStatus? status = DownloadTaskStatus.undefined;
+}
+
+class DownloadItems {
+  static const songs = [
+    DownloadItem(
+      name: 'Song1',
+      url: 'www.google.com',
+    ),
+  ];
+}
+
+class DownloadItem {
+  const DownloadItem({required this.name, required this.url});
+
+  final String name;
+  final String url;
 }

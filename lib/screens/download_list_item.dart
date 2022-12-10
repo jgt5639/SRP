@@ -49,7 +49,7 @@ class _DownloadListItemState extends State<DownloadListItem> {
                 height: 250,
                 child: Column(
                   children: [
-                    TextField(
+                    TextFormField(
                       controller: myController,
                       decoration: InputDecoration(
                         filled: true,
@@ -70,9 +70,31 @@ class _DownloadListItemState extends State<DownloadListItem> {
                         iconSize: 35,
                         color: const Color.fromARGB(255, 248, 233, 161),
                         onPressed: () {
-                          thisLink = myController.text;
+                          if (!myController.text.endsWith('.mp3')) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Error'),
+                                  content:
+                                      Text('Please give a URL ending in .mp3'),
+                                  actions: [
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Close'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            thisLink = myController.text;
 
-                          widget.onActionTap.call(widget.data!.task!, thisLink);
+                            widget.onActionTap
+                                .call(widget.data!.task!, thisLink);
+                          }
                         },
                         constraints:
                             const BoxConstraints(minHeight: 25, minWidth: 25),
