@@ -113,26 +113,13 @@ class _DownloadPageState extends State<DownloadPage> {
                 ? _buildListSectionHeading(item.name!)
                 : DownloadListItem(
                     data: item,
-                    onTap: (task) async {
-                      final success = await _openDownloadedFile(task);
-                      if (!success) {
-                        // ignore: use_build_context_synchronously
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Cannot open this file'),
-                          ),
-                        );
-                      }
-                    },
                     onActionTap: (task, hello) {
                       task.link = hello;
-
                       setState(() {
                         _prepare(hello);
                         _requestDownload(task);
                       });
                     },
-                    onCancel: _delete,
                   ),
         ],
       );
@@ -201,23 +188,6 @@ class _DownloadPageState extends State<DownloadPage> {
       savedDir: _localPath,
       saveInPublicStorage: true,
     );
-  }
-
-  Future<bool> _openDownloadedFile(TaskInfo? task) {
-    if (task != null) {
-      return FlutterDownloader.open(taskId: task.taskId!);
-    } else {
-      return Future.value(false);
-    }
-  }
-
-  Future<void> _delete(TaskInfo task) async {
-    await FlutterDownloader.remove(
-      taskId: task.taskId!,
-      shouldDeleteContent: true,
-    );
-    await _prepare("");
-    setState(() {});
   }
 
   Future<bool> _checkPermission() async {
@@ -315,11 +285,6 @@ class _DownloadPageState extends State<DownloadPage> {
     return externalStorageDirPath;
   }
 
-  Color bgColor = const Color.fromARGB(255, 36, 48, 94);
-  Color twoColor = const Color.fromARGB(255, 55, 71, 133);
-  Color threeColor = const Color.fromARGB(255, 247, 108, 108);
-  Color fourColor = const Color.fromARGB(255, 248, 233, 161);
-  Color fiveColor = const Color.fromARGB(255, 168, 208, 230);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -75,15 +75,15 @@ class _DownloadListItemState extends State<DownloadListItem> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: Text('Error'),
-                                  content:
-                                      Text('Please give a URL ending in .mp3'),
+                                  title: const Text('Error'),
+                                  content: const Text(
+                                      'Please give a URL ending in .mp3'),
                                   actions: [
                                     ElevatedButton(
                                       onPressed: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Text('Close'),
+                                      child: const Text('Close'),
                                     ),
                                   ],
                                 );
